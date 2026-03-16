@@ -405,6 +405,7 @@
 
         const SPECIAL_ELEMENTS = {
             null: { name:'Null', emoji:'⚫', color:'bg-green-600', description:'The void from which all things emerge', isBasic:true },
+            question: { name:'3?', emoji:'❓', color:'bg-orange-500', description:'Wait. What?', isQuestion:true },
             error: { name:'Error', emoji:'⚠️', color:'bg-red-600', description:'Error Code -1 | Unknown Error', isError:true },
             fatalError: { name:'Fatal Error', emoji:'💀', color:'bg-red-900', description:'... _ _ _ ...', isFatalError:true },
             blank: { name:'Blank', emoji:'💭', color:'bg-gray-300', description:'A void between elements', isBlank:true },
@@ -469,8 +470,8 @@
             '9+1':{name:'10',emoji:'🔟',color:'bg-orange-500',description:'Ten units'},
             '3+Ice':{name:'Error',emoji:'⚠️',color:'bg-red-600',description:'Error Code -1 | Unknown Error',isError:true},
             'Error+Error':{name:'Fatal Error',emoji:'💀',color:'bg-red-900',description:'... _ _ _ ...',isFatalError:true},
-            'Fatal Error+Philosophy':{name:'Logical Paradox',emoji:'🔄',color:'bg-purple-800',description:'Immovable logic meets unstoppable contradiction',isSecret:true,excludeFromRank:true},
-            'Logical Paradox+Null':{name:'Undefined Behavior',emoji:'⚠️',color:'bg-yellow-600',description:'Operations outside well-defined behavior',isSecret:true,excludeFromRank:true},
+            'Fatal Error+Philosophy':{name:'Logical Paradox',emoji:'🔄',color:'bg-purple-800',description:'Immovable logic meets unstoppable contradiction',isSecret:true},
+            'Logical Paradox+Null':{name:'Undefined Behavior',emoji:'⚠️',color:'bg-yellow-600',description:'Operations outside well-defined behavior',isSecret:true},
             'Undefined Behavior+Balance':{name:'Invalid Combination??',emoji:'❌',color:'bg-red-800',description:"A combination that shouldn't exist",isSecret:true,excludeFromRank:true},
             'Invalid Combination??+Opposite':{name:'Valid Combination',emoji:'✅',color:'bg-teal-600',description:'Opposite of invalid combination',isSecret:true,isValidCombination:true,excludeFromRank:true},
             'Dust+Water':{name:'Ink',emoji:'🖋️',description:'Liquid used for writing'},
@@ -536,6 +537,7 @@
             'Ocean+Lightning':{name:'Underwater Volcano',emoji:'🌋',description:'Submarine eruption'},
             'Stone+Stone':{name:'Boulder',emoji:'🪨',description:'A very large rock'},
             'Boulder+Opposite':{name:'Pebble',emoji:'🪨',description:'A very not large rock'},
+            'Pebble+Human':{name:'Bella',emoji:'👉🏻🪨',description:'One of our play-testers',isFinal:true},
             'Boulder+Mountain':{name:'Avalanche',emoji:'❄️',description:'Mass of snow and rock falling'},
             'Wind+Fire':{name:'Wildfire',emoji:'🔥',description:'Uncontrolled fire',isHot:true},
             'Water+Glass':{name:'Aquarium',emoji:'🐠',description:'Container for aquatic life'},
@@ -569,6 +571,8 @@
             'Opposite+Fear':{name:'Fun',emoji:'🎮',description:'Enjoyment and amusement',color:'bg-orange-400'},
             'Tool+Fun':{name:'Media',emoji:'📱',description:'Mass communication',color:'bg-green-600',isBasic:true},
             'Media+Media':{name:'Game',emoji:'🎲',description:'Activity for diversion',color:'bg-indigo-400'},
+            'Media+Human':{name:'Play-Tester',emoji:'🎲',description:'A person testing for bugs',color:'bg-indigo-400'},
+            'Play-Tester+Human':{name:'Amelia',emoji:'👧🏽',description:'One of our play-testers',isFinal:true},
             'Close+Opposite':{name:'Far',emoji:'🔭',description:'At a great distance',color:'bg-blue-300'},
             'Game+Human':{name:'Close',emoji:'🤝',description:'Near in space or time',color:'bg-purple-300'},
             'Far+Close':{name:'Dot',emoji:'⚫',description:'A small round mark',color:'bg-green-600',isBasic:true},
@@ -600,7 +604,6 @@
             'Vegetable+Water':{name:'Soup',emoji:'🍲',description:'Liquid food from boiling'},
             'Animal+Water':{name:'Fish',emoji:'🐠',description:'Water creature',color:'bg-blue-400'},
             'Melon+Water':{name:'Watermelon',emoji:'🍉',description:'Large fruit with green rind'},
-            'Watermelon+Youtuber':{name:'MulMelon',emoji:'🍉',description:'YouTube channel for Roblox content',color:'bg-amber-500',isFinal:true,hasLink:true,link:'https://m.youtube.com/@Mulmelon_YT'},},
             'Fly+Air':{name:'Insect',emoji:'🐝',description:'Small arthropod'},
             'Med+Human':{name:'Doctor',emoji:'👨‍⚕️',description:'Person who practices medicine'},
             'Death+Human':{name:'Ghost',emoji:'👻',description:'Spirit of a dead person'},
@@ -692,6 +695,7 @@
             if(el.isHot||el.isSuperHot) cls.push('hot-el');
             if(el.isSecret) cls.push('secret-el');
             if(el.isValidCombination) cls.push('valid-el');
+            if(el.isQuestion||el.name==='3?') cls.push('question-el');
             if(el.isError) cls.push('error-el');
             if(el.isFatalError) cls.push('fatal-el');
             if(el.isTsunami) cls.push('tsunami-el');
