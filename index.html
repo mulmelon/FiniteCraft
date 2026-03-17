@@ -2024,22 +2024,22 @@
             const counted=elements.filter(e=>!e.isExclusive&&!e.excludeFromRank).length;
             const pct=Math.round((counted/totalMain)*100);
             let rank,msg;
-            if(pct<5){rank='U';msg='Just scratched the surface.';}
-            else if(pct<=5){rank='FFF';msg='A bit better.';}
-            else if(pct<=10){rank='FF';msg='A little better!';}
-            else if(pct<=15){rank='F';msg='A lot better!';}
+            if(pct<=5){rank='U';msg='Just scratched the surface.';}
+            else if(pct<=10){rank='FFF';msg='A bit better.';}
+            else if(pct<=15){rank='FF';msg='A little better!';}
+            else if(pct<=20){rank='F';msg='A lot better!';}
             else if(pct<=25){rank='D';msg='Making small progress!';}
             else if(pct<=30){rank='DD';msg='Making progress!';}
             else if(pct<=35){rank='DDD';msg='Making large progress!';}
-            else if(pct<=45){rank='C';msg='Finding your way.';}
-            else if(pct<=50){rank='CC';msg='Finding your way.';}
-            else if(pct<=55){rank='CCC';msg='Finding your way.';}
-            else if(pct<=65){rank='B';msg='Good job!';}
-            else if(pct<=70){rank='BB';msg='Good job!';}
-            else if(pct<=75){rank='BBB';msg='Good job!';}
-            else if(pct<=80){rank='A';msg='Great work!';}
-            else if(pct<=83){rank='AA';msg='Great work!';}
-            else if(pct<=87){rank='AAA';msg='Great work!';}
+            else if(pct<=40){rank='C';msg='Finding your way.';}
+            else if(pct<=45){rank='CC';msg='Finding your way.';}
+            else if(pct<=50){rank='CCC';msg='Finding your way.';}
+            else if(pct<=55){rank='B';msg='Good job!';}
+            else if(pct<=60){rank='BB';msg='Good job!';}
+            else if(pct<=65){rank='BBB';msg='Good job!';}
+            else if(pct<=70){rank='A';msg='Great work!';}
+            else if(pct<=75){rank='AA';msg='Great work!';}
+            else if(pct<=80){rank='AAA';msg='Great work!';}
             else if(pct<=92){rank='S';msg='Impressive!';}
             else if(pct<=96){rank='SS';msg='Elemental master!';}
             else if(pct<=99){rank='SSS';msg='Near perfect!';}
