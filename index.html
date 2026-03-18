@@ -588,6 +588,15 @@
         <button class="modal-close" data-close="changelogModal">&times;</button>
         <h2 class="font-display text-xl mb-5">Changelog</h2>
         <div class="changelog-version">
+            <h3>v2.1 <span class="text-xs font-normal" style="color:var(--text-secondary)">— Latest</span></h3>
+            <ul class="text-sm space-y-1.5 mt-2" style="color:var(--text-secondary)">
+                <li><span class="changelog-tag tag-new">NEW</span> Exclusive elements - Elements that are excluded from the ranking system, but still able to be earned and contribute to the amount of elements found.</li>
+                <li><span class="changelog-tag tag-new">NEW</span> New pi element to celebrate pi day</li>
+                <li><span class="changelog-tag tag-new">NEW</span> Much more variations of elements</li>
+                <li><span class="changelog-tag tag-fix">NEW</span> New Tutorials</li>
+            </ul>
+        </div>
+        <div class="changelog-version">
             <h3>v2.0 <span class="text-xs font-normal" style="color:var(--text-secondary)">— Latest</span></h3>
             <ul class="text-sm space-y-1.5 mt-2" style="color:var(--text-secondary)">
                 <li><span class="changelog-tag tag-new">NEW</span> Coin system — earn coins passively from elements</li>
@@ -2640,7 +2649,7 @@
         // ─── EXPORT / IMPORT ───
         $('exportBtn').addEventListener('click',()=>{
             try{
-                const data=JSON.stringify({elements,combos,gs,v:'2.0'});
+                const data=JSON.stringify({elements,combos,gs,v:'2.1'});
                 $('exportCode').value=safeB64Enc(data);
                 openModal('exportModal');
             }catch(e){notify('Export Error',e.message,'❌');}
