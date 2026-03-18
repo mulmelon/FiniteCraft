@@ -356,6 +356,8 @@
         @keyframes notifBar { to{width:0} }
 
         /* Rank colors */
+        .rank-U{color:#cdcdcd} .rank-F{color:#ef4444} .rank-FF{color:#de1428} .rank-FFF{color:#800000} .rank-D{color:#d97315} rank-DD{color:#e97316} . rank-DDD{color:#f97317} .rank-C{color:#dab309} .rank-CC{color:#eab308} .rank-CCC{color:#fab307}  .rank-B{color:#22c55d} rank-BB{color:#22d55e}. rank-BBB{color:#22ed8f}.
+        .rank-A{color:#12b8a6} .rank-AA{color:#14b8a7} .rank-AAA{color:#14b8d8} .rank-S{color:#3b82f6} .rank-SS{color:#6366f1} .rank-SSS{color:#a855f7}
         .rank-F{color:#ef4444} .rank-D{color:#f97316} .rank-C{color:#eab308} .rank-B{color:#22c55e}
         .rank-A{color:#14b8a6} .rank-S{color:#3b82f6} .rank-SS{color:#6366f1} .rank-SSS{color:#a855f7}
         @keyframes rankPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
@@ -2672,12 +2674,23 @@
         function showEnding(){
             const counted=elements.filter(e=>!e.isExclusive&&!e.excludeFromRank).length;
             const pct=Math.round((counted/totalMain)*100);
-            let rank,msg;
-            if(pct<=20){rank='F';msg='Just scratched the surface.';}
-            else if(pct<=40){rank='D';msg='Making progress!';}
-            else if(pct<=60){rank='C';msg='Finding your way.';}
-            else if(pct<=80){rank='B';msg='Good job!';}
-            else if(pct<=90){rank='A';msg='Great work!';}
+            let rank,msg;            
+            if(pct<=5){rank='U';msg='Just scratched the surface.';}
+            else if(pct<=10){rank='FFF';msg='A bit better.';}
+            else if(pct<=15){rank='FF';msg='A little better!';}
+            else if(pct<=20){rank='F';msg='A lot better!';}
+            else if(pct<=25){rank='D';msg='Making small progress!';}
+            else if(pct<=30){rank='DD';msg='Making progress!';}
+            else if(pct<=35){rank='DDD';msg='Making large progress!';}
+            else if(pct<=45){rank='C';msg='Finding your way.';}
+            else if(pct<=50){rank='CC';msg='Finding your way.';}
+            else if(pct<=55){rank='CCC';msg='Finding your way.';}
+            else if(pct<=65){rank='B';msg='Good job!';}
+            else if(pct<=70){rank='BB';msg='Good job!';}
+            else if(pct<=75){rank='BBB';msg='Good job!';}
+            else if(pct<=80){rank='A';msg='Great work!';}
+            else if(pct<=83){rank='AA';msg='Great work!';}
+            else if(pct<=87){rank='AAA';msg='Great work!';}
             else if(pct<=92){rank='S';msg='Impressive!';}
             else if(pct<=96){rank='SS';msg='Elemental master!';}
             else if(pct<=99){rank='SSS';msg='Near perfect!';}
