@@ -70,6 +70,27 @@
         .badge-hot { background: #ef4444; color: #fff; }
         .badge-secret { background: #111; color: #fff; }
         .badge-valid { background: #0d9488; color: #fff; }
+        .badge-permafrost { background: linear-gradient(135deg,#a5f3fc,#0ea5e9); color: #0c2d48; }
+        .badge-radioactive { background: linear-gradient(135deg,#22c55e,#a3e635); color: #052e16; }
+        .badge-cursed { background: linear-gradient(135deg,#7c3aed,#c026d3); color: #fff; }
+        .badge-blessed { background: linear-gradient(135deg,#fbbf24,#fef3c7); color: #713f12; }
+        .badge-viral { background: linear-gradient(135deg,#10b981,#6ee7b7); color: #022c22; }
+        .badge-unstable { background: linear-gradient(135deg,#f43f5e,#fb923c); color: #fff; }
+        .badge-phantom { background: linear-gradient(135deg,rgba(148,163,184,0.7),rgba(100,116,139,0.5)); color: #fff; }
+        .badge-golden { background: linear-gradient(135deg,#fbbf24,#f59e0b,#fbbf24); color: #451a03; }
+        .badge-crystalline { background: linear-gradient(135deg,#a78bfa,#38bdf8,#34d399); color: #fff; }
+        .badge-corrupted { background: linear-gradient(135deg,#991b1b,#4c1d95); color: #fca5a5; }
+        .badge-holy { background: linear-gradient(135deg,#fef3c7,#fffbeb,#fef3c7); color: #92400e; }
+        .badge-void { background: #000; color: #a78bfa; border: 1px solid #4c1d95; }
+        .badge-ethereal { background: rgba(199,210,254,0.5); color: #4338ca; backdrop-filter: blur(4px); }
+        .badge-legendary { background: linear-gradient(135deg,#f59e0b,#ef4444,#8b5cf6,#3b82f6); color: #fff; }
+        .badge-toxic { background: linear-gradient(135deg,#65a30d,#84cc16); color: #1a2e05; }
+        .badge-chromatic { background: linear-gradient(90deg,#ef4444,#f59e0b,#22c55e,#3b82f6,#8b5cf6); color: #fff; }
+        .badge-ancient { background: linear-gradient(135deg,#92400e,#d97706); color: #fef3c7; }
+        .badge-infernal { background: linear-gradient(135deg,#7f1d1d,#dc2626,#f97316); color: #fef2f2; }
+        .badge-divine { background: linear-gradient(135deg,#fef3c7,#fde68a,#fbbf24); color: #713f12; box-shadow: 0 0 8px rgba(251,191,36,0.5); }
+        .badge-antimatter { background: linear-gradient(135deg,#1e1b4b,#312e81); color: #c7d2fe; }
+        .badge-parasitic { background: linear-gradient(135deg,#365314,#4d7c0f); color: #ecfccb; }
 
         /* Special element styles */
         @keyframes pulseGlow { 0%,100%{box-shadow:0 0 6px rgba(0,200,83,0.4)} 50%{box-shadow:0 0 18px rgba(0,200,83,0.7)} }
@@ -114,6 +135,113 @@
 
         @keyframes glitch { 0%{transform:translate(0)} 20%{transform:translate(-2px,2px)} 60%{transform:translate(2px,-2px)} 100%{transform:translate(0)} }
         .null-el { animation: glitch 2s infinite; }
+
+        /* ─── PERMAFROST ─── */
+        @keyframes permafrostShimmer { 0%,100%{box-shadow:0 0 8px rgba(14,165,233,0.5),inset 0 0 12px rgba(165,243,252,0.15)} 50%{box-shadow:0 0 20px rgba(14,165,233,0.8),inset 0 0 20px rgba(165,243,252,0.3)} }
+        .permafrost-el { animation: permafrostShimmer 3s infinite; background:linear-gradient(135deg,#0c4a6e,#0ea5e9,#a5f3fc)!important; color:#f0f9ff!important; }
+        .permafrost-el::after { content:'🔒'; position:absolute; top:3px; left:3px; font-size:0.65rem; z-index:2; }
+        .permafrost-el::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(60deg,transparent,transparent 8px,rgba(255,255,255,0.05) 8px,rgba(255,255,255,0.05) 16px); border-radius:12px; }
+
+        /* ─── RADIOACTIVE ─── */
+        @keyframes radioGlow { 0%,100%{box-shadow:0 0 6px rgba(34,197,94,0.4)} 33%{box-shadow:0 0 22px rgba(163,230,53,0.8)} 66%{box-shadow:0 0 14px rgba(34,197,94,0.6)} }
+        .radioactive-el { animation: radioGlow 2s infinite; background:linear-gradient(135deg,#052e16,#166534,#22c55e)!important; color:#a3e635!important; }
+        .radioactive-el::after { content:'☢️'; position:absolute; top:3px; left:3px; font-size:0.65rem; z-index:2; }
+
+        /* ─── CURSED ─── */
+        @keyframes cursedPulse { 0%,100%{box-shadow:0 0 8px rgba(124,58,237,0.5)} 50%{box-shadow:0 0 24px rgba(192,38,211,0.8),0 0 48px rgba(124,58,237,0.3)} }
+        .cursed-el { animation: cursedPulse 2.5s infinite; background:linear-gradient(135deg,#2e1065,#7c3aed,#c026d3)!important; color:#e9d5ff!important; }
+        .cursed-el::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 30% 70%,rgba(192,38,211,0.2),transparent 60%); border-radius:12px; }
+        .cursed-el::after { content:'💀'; position:absolute; top:3px; left:3px; font-size:0.55rem; z-index:2; opacity:0.7; }
+
+        /* ─── BLESSED ─── */
+        @keyframes blessedGlow { 0%,100%{box-shadow:0 0 8px rgba(251,191,36,0.3)} 50%{box-shadow:0 0 20px rgba(254,243,199,0.6),0 0 40px rgba(251,191,36,0.2)} }
+        .blessed-el { animation: blessedGlow 3s infinite; background:linear-gradient(135deg,#fef3c7,#fde68a,#fbbf24)!important; color:#713f12!important; }
+        .blessed-el::after { content:'✨'; position:absolute; top:3px; left:3px; font-size:0.55rem; z-index:2; }
+
+        /* ─── VIRAL ─── */
+        @keyframes viralSpread { 0%{box-shadow:0 0 6px rgba(16,185,129,0.4)} 25%{box-shadow:0 0 12px rgba(16,185,129,0.7),4px 0 8px rgba(110,231,183,0.4)} 50%{box-shadow:0 0 18px rgba(16,185,129,0.5),-4px 0 8px rgba(110,231,183,0.4)} 75%{box-shadow:0 0 12px rgba(16,185,129,0.7),0 4px 8px rgba(110,231,183,0.4)} 100%{box-shadow:0 0 6px rgba(16,185,129,0.4)} }
+        .viral-el { animation: viralSpread 2s infinite; background:linear-gradient(135deg,#022c22,#065f46,#10b981)!important; color:#6ee7b7!important; }
+        .viral-el::after { content:'🦠'; position:absolute; top:3px; left:3px; font-size:0.55rem; z-index:2; }
+
+        /* ─── UNSTABLE ─── */
+        @keyframes unstableShake { 0%,100%{transform:translate(0)} 10%{transform:translate(-1px,1px)} 20%{transform:translate(2px,-1px)} 30%{transform:translate(-2px,0)} 40%{transform:translate(1px,2px)} 50%{transform:translate(-1px,-1px)} 60%{transform:translate(2px,1px)} 70%{transform:translate(0,-2px)} 80%{transform:translate(-2px,1px)} 90%{transform:translate(1px,-1px)} }
+        .unstable-el { animation: unstableShake 0.5s infinite; background:linear-gradient(135deg,#f43f5e,#fb923c,#f43f5e)!important; color:#fff!important; }
+        .unstable-el::after { content:'⚠️'; position:absolute; top:3px; left:3px; font-size:0.55rem; z-index:2; }
+
+        /* ─── PHANTOM ─── */
+        @keyframes phantomFade { 0%,100%{opacity:0.9;transform:translateY(0)} 25%{opacity:0.3} 50%{opacity:0.7;transform:translateY(-2px)} 75%{opacity:0.4} }
+        .phantom-el { animation: phantomFade 4s infinite; background:linear-gradient(135deg,rgba(100,116,139,0.3),rgba(148,163,184,0.5))!important; color:#e2e8f0!important; border:1px dashed rgba(148,163,184,0.5)!important; }
+        .phantom-el::after { content:'👻'; position:absolute; top:3px; left:3px; font-size:0.55rem; z-index:2; }
+
+        /* ─── GOLDEN ─── */
+        @keyframes goldenShine { 0%{background-position:200% center} 100%{background-position:-200% center} }
+        .golden-el { background:linear-gradient(90deg,#92400e,#d97706,#fbbf24,#fde68a,#fbbf24,#d97706,#92400e)!important; background-size:200% 100%; animation: goldenShine 4s linear infinite; color:#451a03!important; }
+        .golden-el::before { content:''; position:absolute; inset:0; background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,0.25) 50%,transparent 60%); border-radius:12px; }
+
+        /* ─── CRYSTALLINE ─── */
+        @keyframes crystalRefract { 0%{box-shadow:0 0 6px rgba(167,139,250,0.5)} 33%{box-shadow:0 0 14px rgba(56,189,248,0.6)} 66%{box-shadow:0 0 14px rgba(52,211,153,0.6)} 100%{box-shadow:0 0 6px rgba(167,139,250,0.5)} }
+        .crystalline-el { animation: crystalRefract 3s infinite; background:linear-gradient(135deg,#c4b5fd,#93c5fd,#6ee7b7,#fde68a)!important; color:#1e1b4b!important; }
+        .crystalline-el::before { content:''; position:absolute; inset:0; background:repeating-conic-gradient(from 0deg,transparent 0deg 30deg,rgba(255,255,255,0.08) 30deg 60deg); border-radius:12px; }
+
+        /* ─── CORRUPTED ─── */
+        @keyframes corruptGlitch { 0%,100%{transform:translate(0);filter:hue-rotate(0deg)} 20%{transform:translate(-2px,1px);filter:hue-rotate(90deg)} 40%{transform:translate(1px,-2px)} 60%{transform:translate(-1px,2px);filter:hue-rotate(-90deg)} 80%{transform:translate(2px,-1px)} }
+        .corrupted-el { animation: corruptGlitch 1.5s infinite; background:linear-gradient(135deg,#1c1917,#991b1b,#4c1d95)!important; color:#fca5a5!important; }
+        .corrupted-el::after { content:'🔻'; position:absolute; top:3px; left:3px; font-size:0.55rem; z-index:2; }
+
+        /* ─── HOLY ─── */
+        @keyframes holyRadiance { 0%,100%{box-shadow:0 0 10px rgba(254,243,199,0.4)} 50%{box-shadow:0 0 30px rgba(253,230,138,0.7),0 0 60px rgba(251,191,36,0.2)} }
+        .holy-el { animation: holyRadiance 3s infinite; background:linear-gradient(135deg,#fffbeb,#fef3c7,#fde68a)!important; color:#78350f!important; }
+        .holy-el::after { content:'🕊️'; position:absolute; top:3px; left:3px; font-size:0.55rem; z-index:2; }
+
+        /* ─── VOID ─── */
+        @keyframes voidPull { 0%,100%{box-shadow:inset 0 0 15px rgba(0,0,0,0.8),0 0 8px rgba(76,29,149,0.5)} 50%{box-shadow:inset 0 0 25px rgba(0,0,0,0.95),0 0 20px rgba(76,29,149,0.8)} }
+        .void-el { animation: voidPull 3s infinite; background:radial-gradient(circle at center,#0a0a0a,#1e1b4b,#000)!important; color:#a78bfa!important; }
+        .void-el::before { content:''; position:absolute; inset:4px; border:1px solid rgba(167,139,250,0.2); border-radius:8px; }
+
+        /* ─── ETHEREAL ─── */
+        @keyframes etherealPhase { 0%,100%{opacity:0.85;filter:blur(0)} 30%{opacity:0.4;filter:blur(0.5px)} 60%{opacity:0.95} 80%{opacity:0.5;filter:blur(0.3px)} }
+        .ethereal-el { animation: etherealPhase 5s infinite; background:linear-gradient(135deg,rgba(199,210,254,0.5),rgba(224,231,255,0.6))!important; color:#4338ca!important; border:1px solid rgba(129,140,248,0.3)!important; backdrop-filter:blur(2px); }
+
+        /* ─── LEGENDARY ─── */
+        @keyframes legendaryBorder { 0%{border-color:#ef4444} 25%{border-color:#f59e0b} 50%{border-color:#8b5cf6} 75%{border-color:#3b82f6} 100%{border-color:#ef4444} }
+        @keyframes legendaryGlow { 0%,100%{box-shadow:0 0 10px rgba(239,68,68,0.5)} 25%{box-shadow:0 0 15px rgba(245,158,11,0.5)} 50%{box-shadow:0 0 15px rgba(139,92,246,0.5)} 75%{box-shadow:0 0 15px rgba(59,130,246,0.5)} }
+        .legendary-el { animation: legendaryBorder 4s linear infinite, legendaryGlow 4s linear infinite; border:2px solid #ef4444!important; background:linear-gradient(135deg,#1a1a2e,#2d1b69)!important; color:#fde68a!important; }
+        .legendary-el::before { content:''; position:absolute; inset:0; background:linear-gradient(45deg,transparent,rgba(251,191,36,0.1),transparent); transform:rotate(45deg); animation:shine 3s linear infinite; border-radius:12px; }
+
+        /* ─── TOXIC ─── */
+        @keyframes toxicBubble { 0%,100%{box-shadow:0 0 6px rgba(101,163,13,0.4)} 30%{box-shadow:0 0 14px rgba(132,204,22,0.7),3px -3px 6px rgba(101,163,13,0.3)} 60%{box-shadow:0 0 10px rgba(101,163,13,0.5),-3px -2px 8px rgba(132,204,22,0.4)} }
+        .toxic-el { animation: toxicBubble 2.5s infinite; background:linear-gradient(135deg,#1a2e05,#365314,#65a30d)!important; color:#d9f99d!important; }
+        .toxic-el::after { content:'☠️'; position:absolute; top:3px; left:3px; font-size:0.55rem; z-index:2; }
+
+        /* ─── CHROMATIC ─── */
+        @keyframes chromaticShift { 0%{filter:hue-rotate(0deg)} 100%{filter:hue-rotate(360deg)} }
+        .chromatic-el { animation: chromaticShift 5s linear infinite; background:linear-gradient(135deg,#ef4444,#f59e0b,#22c55e,#3b82f6,#8b5cf6)!important; color:#fff!important; }
+
+        /* ─── ANCIENT ─── */
+        @keyframes ancientDust { 0%,100%{box-shadow:0 0 8px rgba(146,64,14,0.4)} 50%{box-shadow:0 0 16px rgba(217,119,6,0.6)} }
+        .ancient-el { animation: ancientDust 4s infinite; background:linear-gradient(135deg,#451a03,#78350f,#92400e)!important; color:#fde68a!important; }
+        .ancient-el::before { content:''; position:absolute; inset:0; background:url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h4v4H0z' fill='rgba(217,119,6,0.06)'/%3E%3C/svg%3E"); border-radius:12px; }
+
+        /* ─── INFERNAL ─── */
+        @keyframes infernalBlaze { 0%,100%{box-shadow:0 0 10px rgba(220,38,38,0.6)} 25%{box-shadow:0 0 25px rgba(249,115,22,0.8),0 -5px 15px rgba(239,68,68,0.4)} 50%{box-shadow:0 0 35px rgba(220,38,38,0.9),0 -8px 20px rgba(249,115,22,0.5)} 75%{box-shadow:0 0 20px rgba(249,115,22,0.7),0 -3px 10px rgba(220,38,38,0.4)} }
+        .infernal-el { animation: infernalBlaze 2s infinite; background:linear-gradient(180deg,#f97316,#dc2626,#7f1d1d,#000)!important; color:#fef2f2!important; }
+        .infernal-el::before { content:''; position:absolute; bottom:0; left:0; right:0; height:40%; background:linear-gradient(0deg,rgba(249,115,22,0.3),transparent); border-radius:0 0 12px 12px; }
+
+        /* ─── DIVINE ─── */
+        @keyframes divineAscend { 0%,100%{box-shadow:0 0 12px rgba(251,191,36,0.5),0 0 30px rgba(254,243,199,0.2)} 50%{box-shadow:0 0 30px rgba(251,191,36,0.8),0 0 60px rgba(254,243,199,0.4),0 0 90px rgba(251,191,36,0.15)} }
+        .divine-el { animation: divineAscend 4s infinite; background:linear-gradient(135deg,#fef3c7,#fff,#fde68a,#fff,#fef3c7)!important; color:#713f12!important; border:2px solid #fbbf24!important; }
+        .divine-el::before { content:''; position:absolute; inset:0; background:linear-gradient(45deg,transparent,rgba(255,255,255,0.4),transparent); animation:shine 2.5s linear infinite; border-radius:12px; }
+        .divine-el::after { content:'👼'; position:absolute; top:3px; left:3px; font-size:0.55rem; z-index:2; }
+
+        /* ─── ANTIMATTER ─── */
+        @keyframes antimatterWarp { 0%,100%{box-shadow:0 0 8px rgba(30,27,75,0.6);transform:scale(1)} 50%{box-shadow:0 0 22px rgba(99,102,241,0.8);transform:scale(1.02)} }
+        .antimatter-el { animation: antimatterWarp 2s infinite; background:radial-gradient(ellipse at 40% 40%,#312e81,#1e1b4b,#0f0a2e)!important; color:#c7d2fe!important; }
+        .antimatter-el::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 60% 40%,rgba(129,140,248,0.15),transparent 60%); border-radius:12px; }
+
+        /* ─── PARASITIC ─── */
+        @keyframes parasiticCrawl { 0%,100%{box-shadow:0 0 6px rgba(54,83,20,0.5)} 25%{box-shadow:2px 2px 10px rgba(77,124,15,0.6)} 50%{box-shadow:-2px -2px 10px rgba(54,83,20,0.7)} 75%{box-shadow:2px -2px 10px rgba(77,124,15,0.5)} }
+        .parasitic-el { animation: parasiticCrawl 3s infinite; background:linear-gradient(135deg,#1a2e05,#365314)!important; color:#bef264!important; border:1px solid #4d7c0f!important; }
+        .parasitic-el::after { content:'🕷️'; position:absolute; top:3px; left:3px; font-size:0.55rem; z-index:2; }
 
 
         .melt-bar { position:absolute; bottom:0; left:0; height:3px; background:#ef4444; z-index:2; transition:width 0.3s; border-radius:0 0 12px 12px; }
@@ -170,8 +298,8 @@
         @keyframes notifBar { to{width:0} }
 
         /* Rank colors */
-        .rank-U{color:#cdcdcd} .rank-F{color:#ef4444} .rank-FF{color:#de1428} .rank-FFF{color:#800000} .rank-D{color:#d97315} rank-DD{color:#e97316} . rank-DDD{color:#f97317} .rank-C{color:#dab309} .rank-CC{color:#eab308} .rank-CCC{color:#fab307}  .rank-B{color:#22c55d} rank-BB{color:#22d55e}. rank-BBB{color:#22ed8f}.
-        .rank-A{color:#12b8a6} .rank-AA{color:#14b8a7} .rank-AAA{color:#14b8d8} .rank-S{color:#3b82f6} .rank-SS{color:#6366f1} .rank-SSS{color:#a855f7}
+        .rank-F{color:#ef4444} .rank-D{color:#f97316} .rank-C{color:#eab308} .rank-B{color:#22c55e}
+        .rank-A{color:#14b8a6} .rank-S{color:#3b82f6} .rank-SS{color:#6366f1} .rank-SSS{color:#a855f7}
         @keyframes rankPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
         .rank-P { color:#d4a017; animation:rankPulse 2s infinite; }
 
@@ -361,7 +489,7 @@
         <button class="modal-close" data-close="changelogModal">&times;</button>
         <h2 class="font-display text-xl mb-5">Changelog</h2>
         <div class="changelog-version">
-            <h3>v2.0 <span class="text-xs font-normal" style="color:var(--text-secondary)">— Latest</span></h3>
+            <h3>v3.0 <span class="text-xs font-normal" style="color:var(--text-secondary)">— Latest</span></h3>
             <ul class="text-sm space-y-1.5 mt-2" style="color:var(--text-secondary)">
                 <li><span class="changelog-tag tag-new">NEW</span> Coin system — earn coins passively from elements</li>
                 <li><span class="changelog-tag tag-new">NEW</span> Element Shop with 6 pack rarities</li>
@@ -371,7 +499,7 @@
             </ul>
         </div>
         <div class="changelog-version">
-            <h3>v1.1</h3>
+            <h3>v2.0</h3>
             <ul class="text-sm space-y-1.5 mt-2" style="color:var(--text-secondary)">
                 <li><span class="changelog-tag tag-new">NEW</span> Frozen & Hot element mechanics</li>
                 <li><span class="changelog-tag tag-new">NEW</span> Ending screen & rank system</li>
@@ -468,7 +596,7 @@
             '7+1':{name:'8',emoji:'8️⃣',color:'bg-orange-500',description:'The eighth number'},
             '8+1':{name:'9',emoji:'9️⃣',color:'bg-orange-500',description:'The ninth number'},
             '9+1':{name:'10',emoji:'🔟',color:'bg-orange-500',description:'Ten units'},
-            '3+3?':{name:'Error',emoji:'⚠️',color:'bg-red-600',description:'Error Code -1 | Unknown Error',isError:true},
+            '3+Ice':{name:'Error',emoji:'⚠️',color:'bg-red-600',description:'Error Code -1 | Unknown Error',isError:true},
             'Error+Error':{name:'Fatal Error',emoji:'💀',color:'bg-red-900',description:'... _ _ _ ...',isFatalError:true},
             'Fatal Error+Philosophy':{name:'Logical Paradox',emoji:'🔄',color:'bg-purple-800',description:'Immovable logic meets unstoppable contradiction',isSecret:true},
             'Logical Paradox+Null':{name:'Undefined Behavior',emoji:'⚠️',color:'bg-yellow-600',description:'Operations outside well-defined behavior',isSecret:true},
@@ -1488,7 +1616,180 @@
             'Legend+Animal':{name:'Griffin',emoji:'🦅',description:'Eagle head lion body'},
             'Legend+Night':{name:'Werewolf',emoji:'🐺',description:'Beast of the full moon'},
             'Legend+Love':{name:'Tristan and Isolde',emoji:'💕',description:'Greatest love story ever told',isFinal:true},
-            'Legend+Knowledge':{name:'Holy Grail',emoji:'🏆',description:'Most sought-after relic',isSecret:true}
+            'Legend+Knowledge':{name:'Holy Grail',emoji:'🏆',description:'Most sought-after relic',isSecret:true},
+
+            // ═══════════ PERMAFROST — Eternally frozen, unmeltable ═══════════
+            'Ice+Eternity':{name:'Permafrost',emoji:'🧊',color:'bg-cyan-800',description:'Eternally frozen — can never be melted',isPermafrost:true},
+            'Glacier+Time':{name:'Eternal Ice',emoji:'❄️',color:'bg-cyan-700',description:'Ice that has existed since time began',isPermafrost:true},
+            'Cold+Abyss':{name:'Absolute Zero',emoji:'🥶',color:'bg-cyan-900',description:'-273.15°C — molecular standstill',isPermafrost:true},
+            'Blizzard+Blizzard':{name:'Polar Vortex',emoji:'🌀',color:'bg-cyan-600',description:'Apocalyptic frozen cyclone',isPermafrost:true},
+            'Tundra+Eternity':{name:'Fimbulwinter',emoji:'❄️',color:'bg-blue-900',description:'The Norse eternal winter before Ragnarök',isPermafrost:true},
+            'Frost+Immortality':{name:'Cryostasis',emoji:'🧊',color:'bg-cyan-600',description:'Frozen between life and death forever',isPermafrost:true},
+            'Iceberg+Abyss':{name:'Frozen Abyss',emoji:'🕳️',color:'bg-blue-950',description:'The deepest cold — a prison of ice',isPermafrost:true},
+            'Permafrost+Permafrost':{name:'Ice Age',emoji:'🏔️',color:'bg-cyan-950',description:'The world encased in eternal frost',isPermafrost:true,isFinal:true},
+
+            // ═══════════ RADIOACTIVE — Glowing, dangerous, high coin yield ═══════════
+            'Nuclear+Stone':{name:'Uranium',emoji:'☢️',color:'bg-green-800',description:'Radioactive heavy metal',isRadioactive:true},
+            'Radiation+Water':{name:'Heavy Water',emoji:'💧',color:'bg-green-700',description:'Deuterium oxide — reactor fuel',isRadioactive:true},
+            'Nuclear+Energy':{name:'Plutonium',emoji:'☢️',color:'bg-green-900',description:'The most dangerous element',isRadioactive:true},
+            'Uranium+Uranium':{name:'Critical Mass',emoji:'💥',color:'bg-lime-700',description:'Chain reaction imminent!',isRadioactive:true,isUnstable:true},
+            'Nuclear Bomb+Time':{name:'Fallout',emoji:'☢️',color:'bg-green-950',description:'Radioactive aftermath',isRadioactive:true},
+            'Radiation+Ghost':{name:'Glowing One',emoji:'👻',color:'bg-green-500',description:'A ghost lit by radiation',isRadioactive:true,isPhantom:true},
+            'Atom+Radiation':{name:'Isotope',emoji:'⚛️',color:'bg-lime-600',description:'Variant atom with extra neutrons',isRadioactive:true},
+            'Radioactive+Radioactive':{name:'Chernobyl',emoji:'☢️',color:'bg-green-950',description:'Catastrophic meltdown site',isRadioactive:true,isFinal:true},
+
+            // ═══════════ CURSED — Dark magic, chance to ruin combos ═══════════
+            'Dark+Magic':{name:'Dark Magic',emoji:'🌑',color:'bg-purple-900',description:'Forbidden sorcery',isCursed:true},
+            'Shadow+Spell':{name:'Hex',emoji:'🔮',color:'bg-purple-800',description:'A malicious enchantment',isCursed:true},
+            'Necromancy+Curse Word':{name:'Death Curse',emoji:'💀',color:'bg-purple-950',description:'Lethal magical affliction',isCursed:true},
+            'Cursed Artifact+Magic':{name:'Cursed Relic',emoji:'🏺',color:'bg-purple-900',description:'An artifact dripping with malice',isCursed:true},
+            'Necromancy+Spell':{name:'Soul Trap',emoji:'💜',color:'bg-violet-900',description:'Imprisons souls for eternity',isCursed:true},
+            'Hex+Hex':{name:'Malediction',emoji:'👁️',color:'bg-purple-950',description:'An ancient and terrible curse',isCursed:true},
+            'Dark Magic+Undead':{name:'Lich',emoji:'👑',color:'bg-purple-900',description:'Undead sorcerer of supreme power',isCursed:true,isFinal:true},
+
+            // ═══════════ BLESSED — Purifying, protective, high yield ═══════════
+            'Light+Magic':{name:'Blessing',emoji:'✨',color:'bg-amber-200',description:'Divine magical favor',isBlessed:true},
+            'Sun+Meditation':{name:'Inner Peace',emoji:'☮️',color:'bg-amber-100',description:'Total spiritual harmony',isBlessed:true},
+            'Holy Shield+Magic':{name:'Aegis',emoji:'🛡️',color:'bg-amber-300',description:'Impenetrable blessed shield',isBlessed:true},
+            'Blessing+Water':{name:'Holy Water',emoji:'💧',color:'bg-amber-200',description:'Consecrated water — repels evil',isBlessed:true},
+            'Blessing+Sword':{name:'Holy Sword',emoji:'⚔️',color:'bg-amber-300',description:'Blade that smites darkness',isBlessed:true},
+            'Elixir+Blessing':{name:'Ambrosia',emoji:'🍯',color:'bg-amber-200',description:'Nectar of the gods — grants vitality',isBlessed:true},
+            'Holy Water+Holy Sword':{name:'Paladin',emoji:'🛡️',color:'bg-amber-400',description:'Holy warrior sworn to protect',isBlessed:true,isFinal:true},
+
+            // ═══════════ VIRAL — Spreads, duplicates ═══════════
+            'Life+Poison':{name:'Virus',emoji:'🦠',color:'bg-emerald-800',description:'Microscopic infectious agent',isViral:true},
+            'Virus+Internet':{name:'Computer Virus',emoji:'💻',color:'bg-emerald-700',description:'Digital contagion',isViral:true},
+            'Virus+Virus':{name:'Pandemic',emoji:'😷',color:'bg-emerald-900',description:'Global outbreak',isViral:true},
+            'Virus+Magic':{name:'Magical Plague',emoji:'🧪',color:'bg-emerald-800',description:'An arcane disease that spreads by thought',isViral:true,isCursed:true},
+            'Pandemic+Time':{name:'Patient Zero',emoji:'🧬',color:'bg-emerald-600',description:'Where it all began...',isViral:true,isSecret:true},
+            'Computer Virus+AI':{name:'Worm',emoji:'🐛',color:'bg-emerald-700',description:'Self-replicating AI parasite',isViral:true,isFinal:true},
+
+            // ═══════════ UNSTABLE — Shaking, might explode ═══════════
+            'Nuclear+Paradox':{name:'Unstable Isotope',emoji:'⚛️',color:'bg-rose-600',description:'Could decay at any moment',isUnstable:true},
+            'Explosion+Magic':{name:'Wild Magic',emoji:'🎇',color:'bg-rose-500',description:'Chaotic uncontrolled magical energy',isUnstable:true},
+            'Lightning+Paradox':{name:'Ball Lightning',emoji:'⚡',color:'bg-rose-400',description:'Unstable plasma sphere',isUnstable:true},
+            'Atom+Explosion':{name:'Nuclear Fission',emoji:'💥',color:'bg-rose-700',description:'Splitting the atom!',isUnstable:true},
+            'Wild Magic+Wild Magic':{name:'Arcane Singularity',emoji:'🌀',color:'bg-rose-800',description:'Reality tears itself apart',isUnstable:true,isFinal:true},
+            'Unstable Isotope+Fire':{name:'Meltdown',emoji:'☢️',color:'bg-rose-900',description:'Total catastrophic failure',isUnstable:true,isHot:true},
+
+            // ═══════════ PHANTOM — Ghostly, can phase out ═══════════
+            'Haunting+Haunting':{name:'Phantom',emoji:'👻',color:'bg-slate-500',description:'A specter barely clinging to reality',isPhantom:true},
+            'Ghost+Magic':{name:'Wraith',emoji:'👤',color:'bg-slate-600',description:'Vengeful spirit of dark magic',isPhantom:true},
+            'Shadow+Ghost':{name:'Shade',emoji:'🌑',color:'bg-slate-700',description:'Shadow given sentience',isPhantom:true},
+            'Death+Wind':{name:'Banshee',emoji:'💀',color:'bg-slate-500',description:'Her scream heralds death',isPhantom:true},
+            'Phantom+Time':{name:'Revenant',emoji:'⚰️',color:'bg-slate-800',description:'Returned from beyond with a purpose',isPhantom:true},
+            'Wraith+Shade':{name:'Specter King',emoji:'👑',color:'bg-slate-900',description:'Ruler of the restless dead',isPhantom:true,isFinal:true},
+
+            // ═══════════ GOLDEN — Extremely valuable coin generators ═══════════
+            'Gold+Magic':{name:'Midas Touch',emoji:'👆',color:'bg-yellow-500',description:'Everything turns to gold',isGolden:true},
+            'Gold+Alchemy Set':{name:"Philosopher's Stone",emoji:'💎',color:'bg-yellow-600',description:'Transmutes base metals to gold',isGolden:true,isSecret:true},
+            'Fort Knox+Magic':{name:'Golden Vault',emoji:'🏦',color:'bg-yellow-500',description:'Infinite riches, magically guarded',isGolden:true},
+            'Midas Touch+King':{name:'King Midas',emoji:'👑',color:'bg-yellow-600',description:'The golden king — cursed by his own wish',isGolden:true,isCursed:true},
+            'Golden Vault+Golden Vault':{name:'El Dorado Treasury',emoji:'🏛️',color:'bg-yellow-700',description:'The legendary golden chamber',isGolden:true,isFinal:true},
+
+            // ═══════════ CRYSTALLINE — Prismatic, refracting ═══════════
+            'Sapphire+Magic':{name:'Enchanted Crystal',emoji:'💎',color:'bg-violet-400',description:'Crystal pulsing with inner magic',isCrystalline:true},
+            'Obsidian+Light':{name:'Prismatic Shard',emoji:'🔷',color:'bg-indigo-400',description:'Refracts light into rainbows',isCrystalline:true},
+            'Ice+Light':{name:'Crystal Prism',emoji:'🔮',color:'bg-sky-300',description:'Pure frozen light',isCrystalline:true},
+            'Diamond+Energy':{name:'Power Crystal',emoji:'💠',color:'bg-violet-500',description:'Stores vast energy within facets',isCrystalline:true},
+            'Enchanted Crystal+Enchanted Crystal':{name:'Crystal Matrix',emoji:'💎',color:'bg-violet-600',description:'Network of resonating crystals',isCrystalline:true},
+            'Crystal Matrix+Magic':{name:'Crystal Heart',emoji:'💜',color:'bg-violet-700',description:'The living soul of all crystals',isCrystalline:true,isFinal:true},
+
+            // ═══════════ CORRUPTED — Glitchy, may corrupt results ═══════════
+            'Error+Magic':{name:'Corruption',emoji:'🔻',color:'bg-red-900',description:'Magic gone terribly wrong',isCorrupted:true},
+            'Virus+Technology':{name:'Malware',emoji:'💻',color:'bg-red-800',description:'Malicious code infection',isCorrupted:true},
+            'Corruption+Corruption':{name:'Total Corruption',emoji:'⬛',color:'bg-red-950',description:'Nothing remains untainted',isCorrupted:true},
+            'Malware+AI':{name:'Rogue AI',emoji:'🤖',color:'bg-red-800',description:'An AI consumed by corrupted data',isCorrupted:true,isSecret:true},
+            'Total Corruption+Magic':{name:'Void Corruption',emoji:'🕳️',color:'bg-red-950',description:'Corruption that devours reality',isCorrupted:true,isVoid:true,isFinal:true},
+
+            // ═══════════ HOLY — Purifies curses and corruption ═══════════
+            'Light+Blessing':{name:'Sanctified Light',emoji:'🌟',color:'bg-yellow-200',description:'Light that cleanses all darkness',isHoly:true},
+            'Temple+Blessing':{name:'Sacred Ground',emoji:'🕊️',color:'bg-yellow-100',description:'Land untouchable by evil',isHoly:true},
+            'Holy Water+Fire':{name:'Sacred Flame',emoji:'🔥',color:'bg-yellow-300',description:'Purifying fire that burns sin',isHoly:true},
+            'Sanctified Light+Holy Water':{name:'Absolution',emoji:'☀️',color:'bg-yellow-200',description:'Complete forgiveness and purification',isHoly:true},
+            'Sacred Flame+Sacred Ground':{name:'Sanctum',emoji:'🏛️',color:'bg-yellow-100',description:'The most holy place in existence',isHoly:true,isFinal:true},
+
+            // ═══════════ VOID — Absorbs and destroys ═══════════
+            'Black Hole+Magic':{name:'Void Rift',emoji:'🕳️',color:'bg-indigo-950',description:'A tear in the fabric of reality',isVoid:true},
+            'Null+Abyss':{name:'True Void',emoji:'⬛',color:'bg-gray-950',description:'Absolute nothingness',isVoid:true},
+            'Abyss+Magic':{name:'Void Walker',emoji:'🚶',color:'bg-indigo-900',description:'Traveler of empty spaces',isVoid:true},
+            'Void Rift+Void Rift':{name:'Void Nexus',emoji:'⚫',color:'bg-gray-950',description:'Convergence point of all voids',isVoid:true},
+            'True Void+Singularity':{name:'Oblivion',emoji:'⬛',color:'bg-black',description:'The end of everything — total erasure',isVoid:true,isFinal:true},
+
+            // ═══════════ ETHEREAL — Ghostly, phasing in/out ═══════════
+            'Ghost+Light':{name:'Ethereal Glow',emoji:'🌟',color:'bg-indigo-300',description:'Light from the spirit realm',isEthereal:true},
+            'Wind+Ghost':{name:'Ethereal Wind',emoji:'💨',color:'bg-indigo-200',description:'Wind that passes through walls',isEthereal:true},
+            'Dream+Ghost':{name:'Ethereal Dream',emoji:'🌙',color:'bg-indigo-300',description:'Dream of a world between worlds',isEthereal:true},
+            'Ethereal Glow+Ethereal Wind':{name:'Ethereal Plane',emoji:'🌌',color:'bg-indigo-400',description:'The realm beyond the physical',isEthereal:true},
+            'Ethereal Plane+Time':{name:'Limbo',emoji:'🌀',color:'bg-indigo-500',description:'Trapped between dimensions forever',isEthereal:true,isFinal:true},
+
+            // ═══════════ LEGENDARY — Ultimate rare tier ═══════════
+            'Excalibur+Magic':{name:'Legendary Blade',emoji:'⚔️',color:'bg-amber-600',description:'A sword of myth and legend',isLegendary:true},
+            'Phoenix+Dragon':{name:'Legendary Beast',emoji:'🐲',color:'bg-amber-700',description:'A creature beyond all myth',isLegendary:true},
+            'Masterpiece+Magic':{name:'Legendary Artifact',emoji:'🏺',color:'bg-amber-500',description:'Priceless relic of immense power',isLegendary:true},
+            'Skynet+Warp Drive':{name:'Legendary Machine',emoji:'⚙️',color:'bg-amber-600',description:'Technology beyond comprehension',isLegendary:true},
+            'Olympics+Olympics':{name:'Legendary Champion',emoji:'🏆',color:'bg-amber-500',description:'Greatest athlete to ever live',isLegendary:true},
+            'Legendary Blade+Legendary Beast':{name:'Mythic Saga',emoji:'📜',color:'bg-amber-800',description:'The greatest story ever told',isLegendary:true,isFinal:true},
+
+            // ═══════════ TOXIC — Poisonous, contaminates ═══════════
+            'Swamp+Death':{name:'Poison',emoji:'☠️',color:'bg-lime-800',description:'Deadly substance',isToxic:true},
+            'Radiation+Rain':{name:'Acid Rain',emoji:'🌧️',color:'bg-lime-700',description:'Corrosive precipitation',isToxic:true},
+            'Poison+Poison':{name:'Deadly Venom',emoji:'🐍',color:'bg-lime-900',description:'One drop kills',isToxic:true},
+            'Toxic Waste+Magic':{name:'Toxic Sludge',emoji:'🟢',color:'bg-lime-800',description:'Animated poisonous ooze',isToxic:true},
+            'Acid Rain+Ocean':{name:'Dead Sea',emoji:'🌊',color:'bg-lime-700',description:'Nothing survives these waters',isToxic:true},
+            'Deadly Venom+Magic':{name:'Basilisk Venom',emoji:'🐍',color:'bg-lime-950',description:'Destroys anything it touches',isToxic:true,isFinal:true},
+
+            // ═══════════ CHROMATIC — Color-shifting visual wonder ═══════════
+            'Rainbow+Magic':{name:'Chromatic Orb',emoji:'🔮',color:'bg-pink-500',description:'Sphere of shifting colors',isChromatic:true},
+            'Light+Prismatic Shard':{name:'Chromatic Light',emoji:'💡',color:'bg-pink-400',description:'Light in every color at once',isChromatic:true},
+            'Rainbow+Enchanted Crystal':{name:'Chromatic Crystal',emoji:'💎',color:'bg-pink-600',description:'Crystal of infinite hues',isChromatic:true,isCrystalline:true},
+            'Chromatic Orb+Chromatic Light':{name:'Aurora Borealis',emoji:'🌌',color:'bg-pink-500',description:'The sky dances with color',isChromatic:true,isFinal:true},
+
+            // ═══════════ ANCIENT — Old, powerful, lore-rich ═══════════
+            'Fossil+Magic':{name:'Ancient Relic',emoji:'🏺',color:'bg-amber-900',description:'Power preserved through millennia',isAncient:true},
+            'Pyramid+Time':{name:'Ancient Ruins',emoji:'🏛️',color:'bg-amber-800',description:'Crumbling testament to a lost era',isAncient:true},
+            'Fossil+Eternity':{name:'Primordial',emoji:'🦕',color:'bg-amber-900',description:'From before recorded time',isAncient:true},
+            'Ancient Relic+Ancient Ruins':{name:'Lost Civilization',emoji:'🗿',color:'bg-amber-950',description:'Swallowed by time itself',isAncient:true},
+            'Lost Civilization+Magic':{name:'Atlantean Power',emoji:'🔱',color:'bg-amber-800',description:'Technology indistinguishable from magic',isAncient:true,isSecret:true},
+            'Primordial+Primordial':{name:'The First Element',emoji:'🌟',color:'bg-amber-950',description:'What existed before Water, Fire, Earth, and Air',isAncient:true,isFinal:true},
+
+            // ═══════════ INFERNAL — Hellish heat beyond super hot ═══════════
+            'Dragonfire+Inferno':{name:'Hellfire',emoji:'🔥',color:'bg-red-900',description:'Flames from the underworld',isInfernal:true,isHot:true,isSuperHot:true,superHeatFactor:20},
+            'Lava+Abyss':{name:'Infernal Pit',emoji:'🕳️',color:'bg-red-950',description:'Bottomless burning chasm',isInfernal:true,isHot:true,isSuperHot:true,superHeatFactor:15},
+            'Demon+Fire':{name:'Infernal Flame',emoji:'😈',color:'bg-red-800',description:'Demonic fire that burns the soul',isInfernal:true,isHot:true,isSuperHot:true,superHeatFactor:18},
+            'Hellfire+Hellfire':{name:'Lake of Fire',emoji:'🌋',color:'bg-red-950',description:'The final punishment',isInfernal:true,isHot:true,isSuperHot:true,superHeatFactor:25},
+            'Lake of Fire+Eternity':{name:'Eternal Damnation',emoji:'⛓️',color:'bg-red-950',description:'Suffering without end',isInfernal:true,isFinal:true},
+
+            // ═══════════ DIVINE — Heavenly ultimate tier ═══════════
+            'Blessing+Nirvana':{name:'Enlightenment',emoji:'☀️',color:'bg-yellow-200',description:'Total cosmic understanding',isDivine:true},
+            'Holy Grail+Blessing':{name:'Divine Grace',emoji:'🕊️',color:'bg-yellow-100',description:'Touched by the infinite',isDivine:true},
+            'Zeus+Poseidon':{name:'Divine Council',emoji:'⚡',color:'bg-yellow-300',description:'The gods convene',isDivine:true},
+            'Enlightenment+Divine Grace':{name:'Apotheosis',emoji:'👼',color:'bg-yellow-200',description:'Ascension to godhood',isDivine:true},
+            'Apotheosis+Eternity':{name:'The Creator',emoji:'🌟',color:'bg-yellow-100',description:'The one who made it all',isDivine:true,isFinal:true},
+
+            // ═══════════ ANTIMATTER — Annihilates on contact ═══════════
+            'Atom+Opposite':{name:'Antimatter',emoji:'⚛️',color:'bg-indigo-900',description:'Mirror matter — annihilates on contact',isAntimatter:true},
+            'Antimatter+Energy':{name:'Annihilation',emoji:'💥',color:'bg-indigo-800',description:'Matter meets antimatter',isAntimatter:true,isUnstable:true},
+            'Antimatter+Warp Drive':{name:'Antimatter Engine',emoji:'🚀',color:'bg-indigo-700',description:'Powers ships across galaxies',isAntimatter:true},
+            'Antimatter+Antimatter':{name:'False Vacuum',emoji:'⬛',color:'bg-indigo-950',description:'Reality itself is unstable',isAntimatter:true,isUnstable:true,isFinal:true},
+
+            // ═══════════ PARASITIC — Feeds on other elements ═══════════
+            'Virus+Undead':{name:'Parasite',emoji:'🕷️',color:'bg-green-900',description:'Lives by feeding on others',isParasitic:true},
+            'Parasite+Magic':{name:'Mind Flayer',emoji:'🧠',color:'bg-green-800',description:'Feeds on thoughts and memories',isParasitic:true},
+            'Parasite+Technology':{name:'Techno-Parasite',emoji:'🔌',color:'bg-green-700',description:'Drains energy from machines',isParasitic:true},
+            'Mind Flayer+Mind Flayer':{name:'Hive Mind',emoji:'🧠',color:'bg-green-950',description:'One consciousness consuming all',isParasitic:true,isFinal:true},
+
+            // ═══════════ CROSS-TYPE SPECIAL COMBOS ═══════════
+            'Permafrost+Hellfire':{name:'Paradox Ice',emoji:'🔥',color:'bg-purple-700',description:'Ice that burns, fire that freezes',isPermafrost:true,isInfernal:true,isFinal:true},
+            'Blessing+Dark Magic':{name:'Twilight Magic',emoji:'🌓',color:'bg-purple-500',description:'Neither light nor dark',isBlessed:true,isCursed:true,isSecret:true},
+            'Corruption+Holy Water':{name:'Purified Corruption',emoji:'💧',color:'bg-teal-500',description:'Evil washed clean',isBlessed:true},
+            'Antimatter+Permafrost':{name:'Frozen Antimatter',emoji:'🧊',color:'bg-indigo-800',description:'The coldest, most dangerous substance',isAntimatter:true,isPermafrost:true,isFinal:true},
+            'Void Rift+Permafrost':{name:'Frozen Void',emoji:'⬛',color:'bg-gray-900',description:'Emptiness crystallized into ice',isVoid:true,isPermafrost:true},
+            'Legendary Blade+Holy Sword':{name:'Durandal',emoji:'⚔️',color:'bg-amber-500',description:'The indestructible holy blade',isLegendary:true,isBlessed:true,isFinal:true},
+            'Lich+Paladin':{name:'Death Knight',emoji:'🗡️',color:'bg-slate-800',description:'A fallen paladin risen as undead',isCursed:true,isLegendary:true,isFinal:true},
+            'Rogue AI+Pandemic':{name:'Extinction Event',emoji:'🌍',color:'bg-red-950',description:'The end of biological life',isViral:true,isCorrupted:true,isFinal:true},
+            'Crystal Heart+Divine Grace':{name:'Genesis Crystal',emoji:'💎',color:'bg-yellow-300',description:'The crystal from which all creation sprang',isCrystalline:true,isDivine:true,isFinal:true},
+            'Oblivion+The Creator':{name:'Big Bang',emoji:'💥',color:'bg-orange-500',description:'Destruction births creation — the cycle begins anew',isDivine:true,isUnstable:true,isFinal:true}
         };
 
         // ─── SHOP PACKS ───
@@ -1555,8 +1856,10 @@
             if(el.isBasic) cls.push('basic-el');
             if(el.isFinal) cls.push('final-el');
             if(el.isExclusive) cls.push('exclusive-el');
-            if(el.isFrozen) cls.push('frozen-el');
-            if(el.isHot||el.isSuperHot) cls.push('hot-el');
+            if(el.isPermafrost) cls.push('permafrost-el');
+            else if(el.isFrozen) cls.push('frozen-el');
+            if(el.isInfernal) cls.push('infernal-el');
+            else if(el.isHot||el.isSuperHot) cls.push('hot-el');
             if(el.isSecret) cls.push('secret-el');
             if(el.isValidCombination) cls.push('valid-el');
             if(el.isQuestion||el.name==='3?') cls.push('question-el');
@@ -1566,6 +1869,25 @@
             if(el.isBlank) cls.push('blank-el');
             if(el.name==='Null') cls.push('null-el');
             if(el.hasLink) cls.push('youtuber-el');
+            if(el.isRadioactive) cls.push('radioactive-el');
+            if(el.isCursed) cls.push('cursed-el');
+            if(el.isBlessed) cls.push('blessed-el');
+            if(el.isViral) cls.push('viral-el');
+            if(el.isUnstable) cls.push('unstable-el');
+            if(el.isPhantom) cls.push('phantom-el');
+            if(el.isGolden) cls.push('golden-el');
+            if(el.isCrystalline) cls.push('crystalline-el');
+            if(el.isCorrupted) cls.push('corrupted-el');
+            if(el.isHoly) cls.push('holy-el');
+            if(el.isVoid) cls.push('void-el');
+            if(el.isEthereal) cls.push('ethereal-el');
+            if(el.isLegendary) cls.push('legendary-el');
+            if(el.isToxic) cls.push('toxic-el');
+            if(el.isChromatic) cls.push('chromatic-el');
+            if(el.isAncient) cls.push('ancient-el');
+            if(el.isDivine) cls.push('divine-el');
+            if(el.isAntimatter) cls.push('antimatter-el');
+            if(el.isParasitic) cls.push('parasitic-el');
             return cls.join(' ');
         }
 
@@ -1573,10 +1895,31 @@
             let h='';
             if(el.isFinal) h+='<span class="badge badge-final">FINAL</span>';
             if(el.isExclusive) h+='<span class="badge badge-exclusive">EXCLUSIVE</span>';
-            if(el.isFrozen) h+='<span class="badge badge-frozen">FROZEN</span>';
-            if(el.isSuperHot) h+='<span class="badge badge-hot">HOT</span>';
+            if(el.isPermafrost) h+='<span class="badge badge-permafrost">PERMAFROST</span>';
+            else if(el.isFrozen) h+='<span class="badge badge-frozen">FROZEN</span>';
+            if(el.isInfernal) h+='<span class="badge badge-infernal">INFERNAL</span>';
+            else if(el.isSuperHot) h+='<span class="badge badge-hot">HOT</span>';
             if(el.isSecret) h+='<span class="badge badge-secret">SECRET</span>';
             if(el.isValidCombination) h+='<span class="badge badge-valid">VALID</span>';
+            if(el.isRadioactive) h+='<span class="badge badge-radioactive">☢️ RADIO</span>';
+            if(el.isCursed) h+='<span class="badge badge-cursed">CURSED</span>';
+            if(el.isBlessed) h+='<span class="badge badge-blessed">BLESSED</span>';
+            if(el.isViral) h+='<span class="badge badge-viral">VIRAL</span>';
+            if(el.isUnstable) h+='<span class="badge badge-unstable">UNSTABLE</span>';
+            if(el.isPhantom) h+='<span class="badge badge-phantom">PHANTOM</span>';
+            if(el.isGolden) h+='<span class="badge badge-golden">GOLDEN</span>';
+            if(el.isCrystalline) h+='<span class="badge badge-crystalline">CRYSTAL</span>';
+            if(el.isCorrupted) h+='<span class="badge badge-corrupted">CORRUPT</span>';
+            if(el.isHoly) h+='<span class="badge badge-holy">HOLY</span>';
+            if(el.isVoid) h+='<span class="badge badge-void">VOID</span>';
+            if(el.isEthereal) h+='<span class="badge badge-ethereal">ETHEREAL</span>';
+            if(el.isLegendary) h+='<span class="badge badge-legendary">LEGENDARY</span>';
+            if(el.isToxic) h+='<span class="badge badge-toxic">TOXIC</span>';
+            if(el.isChromatic) h+='<span class="badge badge-chromatic">CHROMATIC</span>';
+            if(el.isAncient) h+='<span class="badge badge-ancient">ANCIENT</span>';
+            if(el.isDivine) h+='<span class="badge badge-divine">DIVINE</span>';
+            if(el.isAntimatter) h+='<span class="badge badge-antimatter">ANTI-M</span>';
+            if(el.isParasitic) h+='<span class="badge badge-parasitic">PARASITIC</span>';
             return h;
         }
 
@@ -1595,11 +1938,30 @@
         function calcCoinsPerMin() {
             let r=0;
             elements.forEach(el=>{
-                if(el.isFrozen)return;
-                if(el.isSecret||el.isValidCombination) r+=10;
-                else if(el.isFinal) r+=5;
-                else if(el.isBasic||el.isQuestion) r+=3;
-                else r+=1;
+                if(el.isFrozen&&!el.isPermafrost)return;
+                let base=1;
+                if(el.isSecret||el.isValidCombination) base=10;
+                else if(el.isFinal) base=5;
+                else if(el.isBasic||el.isQuestion) base=3;
+                // Special type bonuses (additive)
+                if(el.isDivine) base+=30;
+                else if(el.isLegendary) base+=25;
+                else if(el.isGolden) base+=20;
+                else if(el.isAncient) base+=12;
+                if(el.isRadioactive) base+=15;
+                if(el.isBlessed) base+=8;
+                if(el.isCrystalline) base+=6;
+                if(el.isInfernal) base+=10;
+                if(el.isChromatic) base+=5;
+                if(el.isHoly) base+=7;
+                if(el.isPermafrost) base+=4;
+                if(el.isAntimatter) base+=12;
+                // Penalties
+                if(el.isCursed) base=Math.max(1,base-3);
+                if(el.isCorrupted) base=Math.max(1,base-5);
+                if(el.isParasitic) base=Math.max(1,Math.floor(base*0.5));
+                if(el.isVoid) base=Math.max(1,base-2);
+                r+=base;
             });
             return r;
         }
@@ -1827,9 +2189,15 @@
             const n1=typeof e1==='object'?e1.name:e1, n2=typeof e2==='object'?e2.name:e2;
             const p1=typeof e1==='object'?e1:{}, p2=typeof e2==='object'?e2:{};
 
+            // ─── Permafrost blocks (can NEVER be melted, blocks all combos) ───
+            if(p1.isPermafrost||p2.isPermafrost){
+                // Permafrost + Permafrost is allowed (recipe)
+                const key1p=n1+'+'+n2, key2p=n2+'+'+n1;
+                if(!(recipes[key1p]||recipes[key2p]))return{permafrostBlock:true};
+            }
             // Frozen blocks
-            if(p1.isFrozen&&!(p2.isHot||p2.isSuperHot||n2==='Fire'||n2==='Inferno'))return{frozen:true};
-            if(p2.isFrozen&&!(p1.isHot||p1.isSuperHot||n1==='Fire'||n1==='Inferno'))return{frozen:true};
+            if(p1.isFrozen&&!p1.isPermafrost&&!(p2.isHot||p2.isSuperHot||n2==='Fire'||n2==='Inferno'))return{frozen:true};
+            if(p2.isFrozen&&!p2.isPermafrost&&!(p1.isHot||p1.isSuperHot||n1==='Fire'||n1==='Inferno'))return{frozen:true};
             // Final blocks
             if(n1==='Infinity Craft'||n2==='Infinity Craft'||n1==='Tomokuta Plays'||n2==='Tomokuta Plays')return{finalBlock:true};
             // Fatal error blocks (allow Fatal Error + Philosophy recipe)
@@ -1837,6 +2205,14 @@
             // Error propagation
             if((n1==='Error'&&n2!=='Error'&&n2!=='Philosophy')||(n2==='Error'&&n1!=='Error'&&n1!=='Philosophy'))
                 return{...SPECIAL_ELEMENTS.error};
+            // Void absorption — void elements consume the other element
+            if((p1.isVoid&&!p2.isVoid)||(p2.isVoid&&!p1.isVoid)){
+                const key1v=n1+'+'+n2, key2v=n2+'+'+n1;
+                if(!(recipes[key1v]||recipes[key2v])){
+                    const consumed=p1.isVoid?n2:n1;
+                    return{voidAbsorb:true,consumed:consumed};
+                }
+            }
             // Blank combos
             if(n1==='Blank'||n2==='Blank'){
                 if(n1==='Blank'&&n2==='Blank')return{name:'  ',emoji:'💭',description:'Double space',isBlank:true,color:'bg-gray-300'};
@@ -1853,8 +2229,58 @@
             if(!result)return{invalid:true,name:'Invalid Combination',emoji:'❌',description:'These elements cannot be combined.',color:'bg-gray-500'};
 
             result={...result};
-            const preventFreeze=p1.isHot||p2.isHot||p1.isSuperHot||p2.isSuperHot||result.isHot||result.isSuperHot;
-            if(Math.random()<0.05&&!result.isFinal&&!result.isError&&!result.isFatalError&&!result.isFrozen&&!preventFreeze){
+
+            // ─── PHANTOM phase-out: 20% chance combo fails ───
+            if((p1.isPhantom||p2.isPhantom)&&!result.isFinal&&Math.random()<0.2){
+                return{phantomFail:true,phantomName:p1.isPhantom?n1:n2};
+            }
+
+            // ─── CURSED corruption: 15% chance to turn result into error ───
+            if((p1.isCursed||p2.isCursed)&&!result.isFinal&&!result.isHoly&&!result.isBlessed&&!result.isDivine&&Math.random()<0.15){
+                return{cursedCorrupt:true};
+            }
+
+            // ─── CORRUPTED infection: 12% chance result becomes corrupted ───
+            if((p1.isCorrupted||p2.isCorrupted)&&!result.isFinal&&!result.isHoly&&!result.isBlessed&&Math.random()<0.12){
+                result.isCorrupted=true;
+            }
+
+            // ─── UNSTABLE explosion: 15% chance to yield random existing element ───
+            if((p1.isUnstable||p2.isUnstable)&&!result.isFinal&&Math.random()<0.15){
+                const pool=elements.filter(e=>!e.isFinal&&!e.isError&&!e.isFatalError);
+                if(pool.length>0){
+                    const rand=pool[Math.floor(Math.random()*pool.length)];
+                    return{unstableExplode:true,explodedInto:{...rand}};
+                }
+            }
+
+            // ─── HOLY purification: cleanses cursed/corrupted results ───
+            if(p1.isHoly||p2.isHoly||p1.isBlessed||p2.isBlessed){
+                delete result.isCursed; delete result.isCorrupted;
+            }
+
+            // ─── TOXIC contamination: 20% chance result becomes toxic ───
+            if((p1.isToxic||p2.isToxic)&&!result.isFinal&&!result.isHoly&&!result.isBlessed&&Math.random()<0.2){
+                result.isToxic=true;
+            }
+
+            // ─── RADIOACTIVE mutation: 8% chance result gets bonus property ───
+            if((p1.isRadioactive||p2.isRadioactive)&&!result.isFinal&&Math.random()<0.08){
+                const mutations=['isGolden','isCrystalline','isChromatic','isEthereal'];
+                result[mutations[Math.floor(Math.random()*mutations.length)]]=true;
+            }
+
+            // ─── PARASITIC drain: steals a property from the other element ───
+            if((p1.isParasitic||p2.isParasitic)&&!result.isFinal){
+                const donor=p1.isParasitic?p2:p1;
+                if(donor.isHot&&!result.isHot){result.isHot=true;}
+                else if(donor.isSecret&&!result.isSecret){result.isSecret=true;}
+                else if(donor.isBlessed&&!result.isBlessed){result.isBlessed=true;}
+            }
+
+            // ─── Random freeze (original mechanic) ───
+            const preventFreeze=p1.isHot||p2.isHot||p1.isSuperHot||p2.isSuperHot||result.isHot||result.isSuperHot||p1.isBlessed||p2.isBlessed||result.isBlessed||result.isInfernal||result.isPermafrost;
+            if(Math.random()<0.05&&!result.isFinal&&!result.isError&&!result.isFatalError&&!result.isFrozen&&!preventFreeze&&!result.isPermafrost){
                 result.isFrozen=true;result.meltProgress=0;result.meltGoal=10;
             }
             return result;
@@ -1889,19 +2315,26 @@
             const isHeat1=sel1.isHot||sel1.isSuperHot||sel1.name==='Fire'||sel1.name==='Inferno';
             const isHeat2=sel2.isHot||sel2.isSuperHot||sel2.name==='Fire'||sel2.name==='Inferno';
 
-            // Frozen + non-heat
-            if(sel1.isFrozen&&!isHeat2||sel2.isFrozen&&!isHeat1){
+            // Permafrost — completely uncombineable (unless recipe exists)
+            // handled in generateElement, but skip melt for permafrost
+            // Frozen + non-heat (skip permafrost — they go through generateElement)
+            if((sel1.isFrozen&&!sel1.isPermafrost&&!isHeat2)||(sel2.isFrozen&&!sel2.isPermafrost&&!isHeat1)){
                 resultArea.innerHTML='<div class="text-center"><div class="el-card frozen-el inline-flex flex-col items-center p-4 mb-2"><div class="el-emoji">❄️</div><div class="el-name">Frozen!</div></div><div class="text-xs" style="color:var(--text-secondary)">Combine with Fire or Hot elements to thaw</div></div>';
                 loader.classList.add('hidden');setTimeout(resetDZs,1500);return;
             }
-            // Melt check
-            if(sel1.isFrozen&&isHeat2){const r=processMelt(sel1,sel2);if(r){showMeltResult(r);loader.classList.add('hidden');return;}}
-            if(sel2.isFrozen&&isHeat1){const r=processMelt(sel2,sel1);if(r){showMeltResult(r);loader.classList.add('hidden');return;}}
+            // Melt check (not for permafrost)
+            if(sel1.isFrozen&&!sel1.isPermafrost&&isHeat2){const r=processMelt(sel1,sel2);if(r){showMeltResult(r);loader.classList.add('hidden');return;}}
+            if(sel2.isFrozen&&!sel2.isPermafrost&&isHeat1){const r=processMelt(sel2,sel1);if(r){showMeltResult(r);loader.classList.add('hidden');return;}}
 
             const result=generateElement(sel1,sel2);
             loader.classList.add('hidden');
 
             if(result.frozen){resultArea.innerHTML='<div class="text-center text-xs" style="color:var(--text-secondary)">❄️ Frozen! Use heat to thaw.</div>';setTimeout(resetDZs,1500);return;}
+            if(result.permafrostBlock){resultArea.innerHTML='<div class="text-center"><div class="el-card permafrost-el inline-flex flex-col items-center p-4 mb-2"><div class="el-emoji">🔒</div><div class="el-name">Permafrost!</div></div><div class="text-xs" style="color:var(--text-secondary)">Permanently frozen — nothing can thaw this</div></div>';setTimeout(resetDZs,1500);return;}
+            if(result.voidAbsorb){resultArea.innerHTML=`<div class="text-center"><div class="el-card void-el inline-flex flex-col items-center p-4 mb-2"><div class="el-emoji">🕳️</div><div class="el-name">Absorbed!</div></div><div class="text-xs" style="color:var(--text-secondary)">The Void consumed <strong>${result.consumed}</strong> — it is gone</div></div>`;setTimeout(resetDZs,1500);return;}
+            if(result.phantomFail){resultArea.innerHTML=`<div class="text-center"><div class="el-card phantom-el inline-flex flex-col items-center p-4 mb-2"><div class="el-emoji">👻</div><div class="el-name">Phased Out!</div></div><div class="text-xs" style="color:var(--text-secondary)">${result.phantomName} flickered out of existence</div></div>`;setTimeout(resetDZs,1500);return;}
+            if(result.cursedCorrupt){resultArea.innerHTML='<div class="text-center"><div class="el-card cursed-el inline-flex flex-col items-center p-4 mb-2"><div class="el-emoji">💀</div><div class="el-name">Curse Activated!</div></div><div class="text-xs" style="color:var(--text-secondary)">The curse corrupted the combination!</div></div>';setTimeout(resetDZs,1500);return;}
+            if(result.unstableExplode){const ex=result.explodedInto;resultArea.innerHTML=`<div class="text-center"><div class="el-card unstable-el inline-flex flex-col items-center p-4 mb-2"><div class="el-emoji">💥</div><div class="el-name">Explosion!</div></div><div class="text-xs" style="color:var(--text-secondary)">Unstable element exploded into <strong>${ex.name}</strong>!</div></div>`;setTimeout(resetDZs,1500);return;}
             if(result.finalBlock){resultArea.innerHTML='<div class="text-center"><div class="el-card final-el inline-flex flex-col items-center p-4 mb-2"><div class="el-emoji">⭐</div><div class="el-name">Final Item</div></div><div class="text-xs" style="color:var(--text-secondary)">Cannot be combined further</div></div>';setTimeout(resetDZs,1500);return;}
             if(result.fatalBlock){resultArea.innerHTML='<div class="text-center"><div class="el-card fatal-el inline-flex flex-col items-center p-4 mb-2"><div class="el-emoji">💀</div><div class="el-name">Fatal Error</div></div><div class="text-xs" style="color:var(--text-secondary)">Cannot process combination</div></div>';setTimeout(resetDZs,1500);return;}
             if(result.invalid){resultArea.innerHTML=`<div class="text-center"><div class="el-card invalid-shake inline-flex flex-col items-center p-4 mb-2" style="background:var(--bg-card);border:1px solid var(--border)" data-name="Invalid Combination"><div class="el-emoji">❌</div><div class="el-name">Invalid Combination</div></div><div class="text-xs" style="color:var(--text-secondary)">${result.description}</div></div>`;resetDZs();return;}
@@ -1983,7 +2416,7 @@
         // ─── EXPORT / IMPORT ───
         $('exportBtn').addEventListener('click',()=>{
             try{
-                const data=JSON.stringify({elements,combos,gs,v:'2.0'});
+                const data=JSON.stringify({elements,combos,gs,v:'3.0'});
                 $('exportCode').value=safeB64Enc(data);
                 openModal('exportModal');
             }catch(e){notify('Export Error',e.message,'❌');}
@@ -2024,22 +2457,11 @@
             const counted=elements.filter(e=>!e.isExclusive&&!e.excludeFromRank).length;
             const pct=Math.round((counted/totalMain)*100);
             let rank,msg;
-            if(pct<=5){rank='U';msg='Just scratched the surface.';}
-            else if(pct<=10){rank='FFF';msg='A bit better.';}
-            else if(pct<=15){rank='FF';msg='A little better!';}
-            else if(pct<=20){rank='F';msg='A lot better!';}
-            else if(pct<=25){rank='D';msg='Making small progress!';}
-            else if(pct<=30){rank='DD';msg='Making progress!';}
-            else if(pct<=35){rank='DDD';msg='Making large progress!';}
-            else if(pct<=40){rank='C';msg='Finding your way.';}
-            else if(pct<=45){rank='CC';msg='Finding your way.';}
-            else if(pct<=50){rank='CCC';msg='Finding your way.';}
-            else if(pct<=55){rank='B';msg='Good job!';}
-            else if(pct<=60){rank='BB';msg='Good job!';}
-            else if(pct<=65){rank='BBB';msg='Good job!';}
-            else if(pct<=70){rank='A';msg='Great work!';}
-            else if(pct<=75){rank='AA';msg='Great work!';}
-            else if(pct<=80){rank='AAA';msg='Great work!';}
+            if(pct<=20){rank='F';msg='Just scratched the surface.';}
+            else if(pct<=40){rank='D';msg='Making progress!';}
+            else if(pct<=60){rank='C';msg='Finding your way.';}
+            else if(pct<=80){rank='B';msg='Good job!';}
+            else if(pct<=90){rank='A';msg='Great work!';}
             else if(pct<=92){rank='S';msg='Impressive!';}
             else if(pct<=96){rank='SS';msg='Elemental master!';}
             else if(pct<=99){rank='SSS';msg='Near perfect!';}
