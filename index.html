@@ -1470,6 +1470,7 @@
             'Normal+Vegetable':{name:'Potato',emoji:'🥔',description:'The most normal vegetable'},
             'Normal+Animal':{name:'Dog',emoji:'🐕',description:'Humanity best friend'},
             'Normal+Life':{name:'Ordinary',emoji:'😐',description:'Living without surprises'},
+            'Opposite+Life':{name:'Death',emoji:'💀',description:'End of life'},
             'Normal+Star':{name:'Background Star',emoji:'⭐',description:'One of billions, unnoticed'},
             'Fruit+Cold':{name:'Frozen Fruit',emoji:'🫐',description:'Icy fruity treats',isFrozen:true,meltProgress:0,meltGoal:5},
             'Fruit+Tree':{name:'Orchard',emoji:'🍎',description:'Garden of fruit trees'},
@@ -2555,7 +2556,7 @@
             loaderText.textContent='Combining elements...';
             resultArea.innerHTML='<div class="text-sm" style="color:var(--text-secondary)"><span class="inline-block w-4 h-4 border-2 rounded-full animate-spin mr-2" style="border-color:var(--gold);border-top-color:transparent"></span>Discovering...</div>';
 
-            await new Promise(r=>setTimeout(r,400+Math.random()*800));
+            await new Promise(r=>setTimeout(r,100+Math.random()*300));
 
             const result=generateElement(sel1,sel2);
             loader.classList.add('hidden');
