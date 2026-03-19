@@ -502,7 +502,7 @@
     <div id="exportModal" class="modal-overlay"><div class="modal-box">
         <button class="modal-close" data-close="exportModal">&times;</button>
         <h2 class="font-display text-xl mb-3">🔒 Secure Export</h2>
-        <p class="text-sm mb-2" style="color:var(--text-secondary)">Set a password to encrypt your save (AES-256 double encryption):</p>
+        <p class="text-sm mb-2" style="color:var(--text-secondary)">Set a password to encrypt your save:</p>
         <div class="flex gap-2 mb-3">
             <input type="password" id="exportPass" placeholder="Password (min 4 chars)" class="flex-1 px-3 py-2 text-sm rounded-xl" style="background:var(--bg-primary);border:1px solid var(--border);color:var(--text-primary);font-size:16px">
             <button id="doExportBtn" class="text-sm px-4 py-2 rounded-xl font-semibold transition-all hover:scale-105" style="background:var(--gold);color:#1a1a2e">Encrypt</button>
@@ -512,7 +512,6 @@
         <div id="exportCodeWrap" class="hidden">
             <div class="relative"><textarea id="exportCode" class="w-full h-28 p-3 text-xs font-mono rounded-xl resize-none" style="background:var(--bg-primary);border:1px solid var(--border);color:var(--text-primary)" readonly></textarea>
             <button id="copyBtn" class="absolute right-2 top-2 text-xs font-semibold px-3 py-1 rounded-lg text-white" style="background:var(--gold);color:#1a1a2e">Copy</button></div>
-            <p class="text-xs mt-2 flex items-center gap-1" style="color:var(--teal)">🔐 Encrypted with AES-256-GCM × 2 + PBKDF2 (600K rounds) + HMAC-SHA256</p>
         </div>
         <div id="editModeWrap" class="hidden">
             <p class="text-xs mb-2 font-semibold" style="color:#a855f6">🔓 Dev Edit Mode — Modify raw save data:</p>
@@ -538,7 +537,7 @@
             <div class="w-full h-1.5 rounded-full overflow-hidden" style="background:var(--border)">
                 <div id="importProgressBar" class="h-full rounded-full transition-all" style="background:var(--gold);width:0%"></div>
             </div>
-            <p class="text-xs mt-1" style="color:var(--text-secondary)">Decrypting (deriving keys from 600K PBKDF2 rounds)...</p>
+            <p class="text-xs mt-1" style="color:var(--text-secondary)">Decrypting...</p>
         </div>
         <div class="flex justify-end gap-2">
             <button id="cancelImport" class="text-sm px-4 py-2 rounded-lg" style="background:var(--bg-primary);border:1px solid var(--border)">Cancel</button>
@@ -2103,7 +2102,7 @@
         function safeB64Enc(s){return btoa(unescape(encodeURIComponent(s)));}
         function safeB64Dec(s){return decodeURIComponent(escape(atob(s)));}
 
-        // ─── SECURE ENCRYPTION ENGINE (AES-256-GCM + PBKDF2 + HMAC + Double Layer) ───
+
         const CRYPTO_VERSION = 'CM3';
         const PBKDF2_ITERATIONS = 600000;
         const SALT_LEN = 32;
