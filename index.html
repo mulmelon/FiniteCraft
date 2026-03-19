@@ -95,6 +95,27 @@
         .badge-parasitic { background: linear-gradient(135deg,#365314,#4d7c0f); color: #ecfccb; }
         .badge-magnetic { background: linear-gradient(135deg,#475569,#94a3b8,#475569); color: #f1f5f9; }
         .badge-temporal { background: linear-gradient(135deg,#4338ca,#7c3aed,#2563eb); color: #e0e7ff; }
+
+        /* Bug Finder preview */
+        .bugfinder-preview {
+            display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+            width: 100px; height: 100px; border-radius: 14px; margin: 16px auto;
+            background: linear-gradient(135deg, #7c3aed, #a855f6, #c084fc);
+            color: #fff; position: relative;
+            box-shadow: 0 0 20px rgba(168,85,246,0.5), 0 0 40px rgba(168,85,246,0.3), inset 0 0 20px rgba(255,255,255,0.1);
+            animation: bugfinderGlow 2.5s infinite;
+        }
+        @keyframes bugfinderGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(168,85,246,0.5), 0 0 40px rgba(168,85,246,0.3); }
+            50% { box-shadow: 0 0 30px rgba(168,85,246,0.7), 0 0 60px rgba(168,85,246,0.4), 0 0 80px rgba(168,85,246,0.2); }
+        }
+        .bugfinder-preview .bf-emoji { font-size: 1.8rem; line-height: 1; margin-bottom: 4px; }
+        .bugfinder-preview .bf-name { font-size: 0.7rem; font-weight: 600; }
+        .bugfinder-preview .bf-badge {
+            position: absolute; top: 0; right: 0; font-size: 0.5rem; font-weight: 700;
+            padding: 2px 6px; border-radius: 0 12px 0 8px;
+            background: #8b5cf6; color: #fff; letter-spacing: 0.5px;
+        }
         .badge-abyssal { background: linear-gradient(135deg,#0c4a6e,#164e63,#083344); color: #a5f3fc; }
         .badge-celestial { background: linear-gradient(135deg,#1e1b4b,#312e81,#fbbf24); color: #fef3c7; }
         .badge-electric { background: linear-gradient(135deg,#854d0e,#eab308,#facc15); color: #422006; }
@@ -385,6 +406,13 @@
         #searchInput { font-family:'Lexend',sans-serif; background:var(--bg-card); border:1px solid var(--border); color:var(--text-primary); }
         #searchInput:focus { border-color:var(--gold); outline:none; box-shadow:0 0 0 3px var(--gold-glow); }
 
+        /* Sort buttons */
+        .sort-btn { background:var(--bg-card); border:1px solid var(--border); color:var(--text-secondary); cursor:pointer; }
+        .sort-btn:hover { border-color:var(--gold); color:var(--text-primary); }
+        .sort-btn.sort-active { background:var(--gold-glow); color:var(--gold); border-color:var(--gold); font-weight:700; }
+        .type-divider { grid-column:1/-1; padding:6px 12px; margin-top:8px; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--gold); border-bottom:1px solid var(--border); display:flex; align-items:center; gap:6px; }
+        .type-divider::after { content:''; flex:1; height:1px; background:var(--border); }
+
         /* Combo history */
         .combo-entry { padding:6px 0; border-bottom:1px solid var(--border); display:flex; align-items:center; font-size:0.85rem; }
         .combo-entry:last-child { border-bottom:none; }
@@ -450,6 +478,12 @@
                     <button id="resetBtn" class="text-xs font-medium px-3 py-1.5 rounded-lg transition-colors" style="background:rgba(239,68,68,0.08);color:#ef4444">Reset</button>
                 </div>
             </div>
+            <div class="flex flex-wrap gap-1.5 mb-3 items-center">
+                <span class="text-xs font-medium mr-1" style="color:var(--text-secondary)">Sort:</span>
+                <button id="sortOriginal" class="sort-btn sort-active text-xs font-medium px-2.5 py-1 rounded-lg transition-all" data-sort="original">Discovery ↕</button>
+                <button id="sortType" class="sort-btn text-xs font-medium px-2.5 py-1 rounded-lg transition-all" data-sort="type">Type</button>
+                <button id="sortAlpha" class="sort-btn text-xs font-medium px-2.5 py-1 rounded-lg transition-all" data-sort="alpha">A → Z</button>
+            </div>
             <div id="noResults" class="hidden text-center py-6 text-sm" style="color:var(--text-secondary)">No elements match your search</div>
             <div id="elGrid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2.5"></div>
         </section>
@@ -467,22 +501,48 @@
     <!-- Export Modal -->
     <div id="exportModal" class="modal-overlay"><div class="modal-box">
         <button class="modal-close" data-close="exportModal">&times;</button>
-        <h2 class="font-display text-xl mb-3">Export Save</h2>
-        <p class="text-sm mb-3" style="color:var(--text-secondary)">Copy this code to save your progress:</p>
-        <div class="relative"><textarea id="exportCode" class="w-full h-28 p-3 text-xs font-mono rounded-xl resize-none" style="background:var(--bg-primary);border:1px solid var(--border);color:var(--text-primary)" readonly></textarea>
-        <button id="copyBtn" class="absolute right-2 top-2 text-xs font-semibold px-3 py-1 rounded-lg text-white" style="background:var(--gold);color:#1a1a2e">Copy</button></div>
+        <h2 class="font-display text-xl mb-3">🔒 Secure Export</h2>
+        <p class="text-sm mb-2" style="color:var(--text-secondary)">Set a password to encrypt your save (AES-256 double encryption):</p>
+        <div class="flex gap-2 mb-3">
+            <input type="password" id="exportPass" placeholder="Password (min 4 chars)" class="flex-1 px-3 py-2 text-sm rounded-xl" style="background:var(--bg-primary);border:1px solid var(--border);color:var(--text-primary);font-size:16px">
+            <button id="doExportBtn" class="text-sm px-4 py-2 rounded-xl font-semibold transition-all hover:scale-105" style="background:var(--gold);color:#1a1a2e">Encrypt</button>
+        </div>
+        <div id="exportStrength" class="text-xs mb-2 hidden" style="color:var(--text-secondary)"></div>
+        <p id="exportErr" class="hidden text-xs text-red-500 mb-2"></p>
+        <div id="exportCodeWrap" class="hidden">
+            <div class="relative"><textarea id="exportCode" class="w-full h-28 p-3 text-xs font-mono rounded-xl resize-none" style="background:var(--bg-primary);border:1px solid var(--border);color:var(--text-primary)" readonly></textarea>
+            <button id="copyBtn" class="absolute right-2 top-2 text-xs font-semibold px-3 py-1 rounded-lg text-white" style="background:var(--gold);color:#1a1a2e">Copy</button></div>
+            <p class="text-xs mt-2 flex items-center gap-1" style="color:var(--teal)">🔐 Encrypted with AES-256-GCM × 2 + PBKDF2 (600K rounds) + HMAC-SHA256</p>
+        </div>
+        <div id="editModeWrap" class="hidden">
+            <p class="text-xs mb-2 font-semibold" style="color:#a855f6">🔓 Dev Edit Mode — Modify raw save data:</p>
+            <textarea id="editCodeArea" class="w-full h-44 p-3 text-xs font-mono rounded-xl resize-none mb-2" style="background:var(--bg-primary);border:2px solid #a855f6;color:var(--text-primary);font-size:16px" spellcheck="false"></textarea>
+            <p id="editErr" class="hidden text-xs text-red-500 mb-2"></p>
+            <div class="flex gap-2 mb-2">
+                <input type="password" id="reEncryptPass" placeholder="New password to re-encrypt" class="flex-1 px-3 py-2 text-sm rounded-xl" style="background:var(--bg-primary);border:1px solid var(--border);color:var(--text-primary);font-size:16px">
+                <button id="reEncryptBtn" class="text-sm px-4 py-2 rounded-xl font-semibold transition-all hover:scale-105" style="background:#a855f6;color:#fff">Re-encrypt</button>
+            </div>
+            <p class="text-xs" style="color:var(--text-secondary)">⚠️ Be careful — invalid JSON will corrupt your save.</p>
+        </div>
     </div></div>
 
     <!-- Import Modal -->
     <div id="importModal" class="modal-overlay"><div class="modal-box">
         <button class="modal-close" data-close="importModal">&times;</button>
-        <h2 class="font-display text-xl mb-3">Import Save</h2>
-        <p class="text-sm mb-3" style="color:var(--text-secondary)">Paste your saved code:</p>
-        <textarea id="importCode" class="w-full h-28 p-3 text-xs font-mono rounded-xl resize-none mb-3" style="background:var(--bg-primary);border:1px solid var(--border);color:var(--text-primary)" placeholder="Paste code here..."></textarea>
+        <h2 class="font-display text-xl mb-3">🔒 Secure Import</h2>
+        <p class="text-sm mb-3" style="color:var(--text-secondary)">Paste your encrypted save code:</p>
+        <textarea id="importCode" class="w-full h-28 p-3 text-xs font-mono rounded-xl resize-none mb-2" style="background:var(--bg-primary);border:1px solid var(--border);color:var(--text-primary)" placeholder="Paste encrypted code here..."></textarea>
+        <input type="password" id="importPass" placeholder="Enter decryption password" class="w-full px-3 py-2 text-sm rounded-xl mb-3" style="background:var(--bg-primary);border:1px solid var(--border);color:var(--text-primary);font-size:16px">
         <p id="importErr" class="hidden text-xs text-red-500 mb-2"></p>
+        <div id="importProgress" class="hidden mb-2">
+            <div class="w-full h-1.5 rounded-full overflow-hidden" style="background:var(--border)">
+                <div id="importProgressBar" class="h-full rounded-full transition-all" style="background:var(--gold);width:0%"></div>
+            </div>
+            <p class="text-xs mt-1" style="color:var(--text-secondary)">Decrypting (deriving keys from 600K PBKDF2 rounds)...</p>
+        </div>
         <div class="flex justify-end gap-2">
             <button id="cancelImport" class="text-sm px-4 py-2 rounded-lg" style="background:var(--bg-primary);border:1px solid var(--border)">Cancel</button>
-            <button id="confirmImport" class="text-sm px-4 py-2 rounded-lg font-semibold" style="background:var(--gold);color:#1a1a2e">Import</button>
+            <button id="confirmImport" class="text-sm px-4 py-2 rounded-lg font-semibold" style="background:var(--gold);color:#1a1a2e">Decrypt & Import</button>
         </div>
     </div></div>
 
@@ -583,6 +643,11 @@
         </div>
         <button class="font-semibold text-sm py-2.5 px-8 rounded-full" style="background:var(--gold);color:#1a1a2e" data-close="frozenTutModal">Got it!</button>
     </div></div>
+        </div>
+        <div class="mt-4 pt-3 text-xs" style="border-top:1px solid var(--border);color:var(--text-secondary)">
+            Each code can only be claimed by <strong>one person ever</strong>. Codes are case-sensitive.
+        </div>
+    </div></div>
 
     <!-- Changelog Button & Modal -->
     <button id="changelogBtn" class="fixed bottom-5 right-5 w-11 h-11 rounded-full flex items-center justify-center text-lg shadow-lg z-50 transition-transform hover:scale-110" style="background:var(--gold);color:#1a1a2e">📋</button>
@@ -590,7 +655,7 @@
         <button class="modal-close" data-close="changelogModal">&times;</button>
         <h2 class="font-display text-xl mb-5">Changelog</h2>
         <div class="changelog-version">
-            <h3>v2.1 <span class="text-xs font-normal" style="color:var(--text-secondary)">— Latest</span></h3>
+            <h3>v2.1</h3>
             <ul class="text-sm space-y-1.5 mt-2" style="color:var(--text-secondary)">
                 <li><span class="changelog-tag tag-new">NEW</span> Exclusive elements - Elements that are excluded from the ranking system, but still able to be earned and contribute to the amount of elements found.</li>
                 <li><span class="changelog-tag tag-new">NEW</span> New pi element to celebrate pi day</li>
@@ -626,6 +691,22 @@
         <div class="mt-4 pt-3 text-xs" style="border-top:1px solid var(--border);color:var(--text-secondary)">
             Thanks to all players who keep combining! 🧪
         </div>
+    </div></div>
+
+    <!-- Bug Report Modal -->
+    <div id="bugReportModal" class="modal-overlay"><div class="modal-box text-center" style="max-width:480px;border-color:#a855f6">
+        <button class="modal-close" data-close="bugReportModal">&times;</button>
+        <h2 class="font-display text-xl mb-3" style="color:#a855f6">🐛 Found a Bug?</h2>
+        <p class="text-sm mb-3" style="color:var(--text-secondary)">If you found a bug, please report it to:</p>
+        <p class="text-base font-bold mb-4" style="color:var(--teal)">📧 ismehhj123@gmail.com</p>
+        <p class="text-sm mb-2" style="color:var(--text-secondary)">We will reward you with a special element!</p>
+        <div class="bugfinder-preview">
+            <span class="bf-badge">EXCLUSIVE</span>
+            <span class="bf-emoji">🐛🔎</span>
+            <span class="bf-name">Bug Finder</span>
+        </div>
+        <p class="text-sm mb-5" style="color:var(--text-secondary)">Send your <strong>import code</strong> and your <strong>encryption password</strong> in the email and we will send your updated import code back with the <strong style="color:#a855f6">Bug Finder</strong> element included!</p>
+        <button class="font-semibold text-sm py-2.5 px-8 rounded-full transition-all hover:scale-105" style="background:#a855f6;color:#fff" data-close="bugReportModal">Got it!</button>
     </div></div>
 
     <!-- Notifications -->
@@ -2021,13 +2102,81 @@
 
         function safeB64Enc(s){return btoa(unescape(encodeURIComponent(s)));}
         function safeB64Dec(s){return decodeURIComponent(escape(atob(s)));}
+
+        // ─── SECURE ENCRYPTION ENGINE (AES-256-GCM + PBKDF2 + HMAC + Double Layer) ───
+        const CRYPTO_VERSION = 'CM3';
+        const PBKDF2_ITERATIONS = 600000;
+        const SALT_LEN = 32;
+        const IV_LEN = 12;
+
+        function getRandomBytes(n) { const b = new Uint8Array(n); crypto.getRandomValues(b); return b; }
+        function toHex(buf) { return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join(''); }
+        function fromHex(h) { const b = new Uint8Array(h.length/2); for(let i=0;i<h.length;i+=2) b[i/2]=parseInt(h.substr(i,2),16); return b; }
+        function concatBuf(...bufs) { const t = bufs.reduce((a,b)=>a+b.byteLength,0); const r = new Uint8Array(t); let o=0; bufs.forEach(b=>{r.set(new Uint8Array(b),o);o+=b.byteLength;}); return r.buffer; }
+
+        async function deriveKeys(password, salt) {
+            const enc = new TextEncoder();
+            const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey','deriveBits']);
+            const aesKey1 = await crypto.subtle.deriveKey(
+                { name:'PBKDF2', salt:salt, iterations:PBKDF2_ITERATIONS, hash:'SHA-512' },
+                keyMaterial, { name:'AES-GCM', length:256 }, false, ['encrypt','decrypt']
+            );
+            const salt2 = new Uint8Array(salt.byteLength || salt.length);
+            salt2.set(new Uint8Array(salt instanceof ArrayBuffer ? salt : salt.buffer));
+            salt2.reverse();
+            const aesKey2 = await crypto.subtle.deriveKey(
+                { name:'PBKDF2', salt:salt2, iterations:PBKDF2_ITERATIONS, hash:'SHA-256' },
+                keyMaterial, { name:'AES-GCM', length:256 }, false, ['encrypt','decrypt']
+            );
+            const hmacBits = await crypto.subtle.deriveBits(
+                { name:'PBKDF2', salt:concatBuf(salt, enc.encode('hmac-auth')), iterations:PBKDF2_ITERATIONS, hash:'SHA-512' },
+                keyMaterial, 256
+            );
+            const hmacKey = await crypto.subtle.importKey('raw', hmacBits, { name:'HMAC', hash:'SHA-256' }, false, ['sign','verify']);
+            return { aesKey1, aesKey2, hmacKey };
+        }
+
+        async function secureEncrypt(plaintext, password) {
+            const salt = getRandomBytes(SALT_LEN);
+            const { aesKey1, aesKey2, hmacKey } = await deriveKeys(password, salt);
+            const enc = new TextEncoder();
+            const data = enc.encode(plaintext);
+            const iv1 = getRandomBytes(IV_LEN);
+            const cipher1 = await crypto.subtle.encrypt({ name:'AES-GCM', iv:iv1, tagLength:128 }, aesKey1, data);
+            const iv2 = getRandomBytes(IV_LEN);
+            const cipher2 = await crypto.subtle.encrypt({ name:'AES-GCM', iv:iv2, tagLength:128 }, aesKey2, cipher1);
+            const payload = concatBuf(salt, iv1, iv2, cipher2);
+            const sig = await crypto.subtle.sign('HMAC', hmacKey, payload);
+            const final = concatBuf(new Uint8Array([3]), payload, sig);
+            return CRYPTO_VERSION + '.' + toHex(final);
+        }
+
+        async function secureDecrypt(cipherHex, password) {
+            if (!cipherHex.startsWith(CRYPTO_VERSION + '.')) throw new Error('Invalid or legacy code format');
+            const raw = fromHex(cipherHex.slice(CRYPTO_VERSION.length + 1));
+            if (raw[0] !== 3) throw new Error('Unsupported encryption version');
+            const body = raw.slice(1);
+            const sigLen = 32;
+            const payload = body.slice(0, body.length - sigLen);
+            const sig = body.slice(body.length - sigLen);
+            const salt = payload.slice(0, SALT_LEN);
+            const iv1 = payload.slice(SALT_LEN, SALT_LEN + IV_LEN);
+            const iv2 = payload.slice(SALT_LEN + IV_LEN, SALT_LEN + IV_LEN + IV_LEN);
+            const cipher2 = payload.slice(SALT_LEN + IV_LEN + IV_LEN);
+            const { aesKey1, aesKey2, hmacKey } = await deriveKeys(password, salt);
+            const valid = await crypto.subtle.verify('HMAC', hmacKey, sig, payload);
+            if (!valid) throw new Error('Wrong password or data tampered');
+            const cipher1 = await crypto.subtle.decrypt({ name:'AES-GCM', iv:iv2, tagLength:128 }, aesKey2, cipher2);
+            const plain = await crypto.subtle.decrypt({ name:'AES-GCM', iv:iv1, tagLength:128 }, aesKey1, cipher1);
+            return new TextDecoder().decode(plain);
+        }
         function randColor(){const c=['bg-red-400','bg-blue-400','bg-green-400','bg-yellow-400','bg-purple-400','bg-pink-400','bg-indigo-400','bg-teal-400','bg-orange-400','bg-cyan-400','bg-emerald-400','bg-violet-400'];return c[Math.floor(Math.random()*c.length)];}
 
         function getElClasses(el) {
             let cls=[];
             if(el.isBasic) cls.push('basic-el');
             if(el.isFinal) cls.push('final-el');
-            if(el.isExclusive) cls.push('exclusive-el');
+            else if(el.isExclusive) cls.push('exclusive-el');
             if(el.isPermafrost) cls.push('permafrost-el');
             else if(el.isFrozen) cls.push('frozen-el');
             if(el.isInfernal) cls.push('infernal-el');
@@ -2071,7 +2220,7 @@
         function getBadges(el) {
             let h='';
             if(el.isFinal) h+='<span class="badge badge-final">FINAL</span>';
-            if(el.isExclusive) h+='<span class="badge badge-exclusive">EXCLUSIVE</span>';
+            else if(el.isExclusive) h+='<span class="badge badge-exclusive">EXCLUSIVE</span>';
             if(el.isPermafrost) h+='<span class="badge badge-permafrost">PERMAFROST</span>';
             else if(el.isFrozen) h+='<span class="badge badge-frozen">FROZEN</span>';
             if(el.isInfernal) h+='<span class="badge badge-infernal">INFERNAL</span>';
@@ -2103,6 +2252,75 @@
             if(el.isCelestial) h+='<span class="badge badge-celestial">CELESTIAL</span>';
             if(el.isElectric) h+='<span class="badge badge-electric">ELECTRIC</span>';
             return h;
+        }
+
+        // ─── ELEMENT TYPE CLASSIFICATION & SORTING ───
+        const TYPE_ORDER = [
+            'Basic','Final','Exclusive','Secret','Legendary','Divine','Celestial','Ancient',
+            'Holy','Blessed','Golden','Crystalline','Chromatic','Ethereal','Electric','Magnetic','Temporal',
+            'Infernal','Hot','Radioactive','Toxic','Cursed','Corrupted','Void','Abyssal',
+            'Antimatter','Phantom','Unstable','Viral','Parasitic','Frozen','Permafrost','Tsunami',
+            'Error','Fatal Error','Blank','Normal'
+        ];
+        function getElType(el) {
+            if(el.isFatalError) return 'Fatal Error';
+            if(el.isError) return 'Error';
+            if(el.isDivine) return 'Divine';
+            if(el.isCelestial) return 'Celestial';
+            if(el.isLegendary) return 'Legendary';
+            if(el.isAncient) return 'Ancient';
+            if(el.isHoly) return 'Holy';
+            if(el.isBlessed) return 'Blessed';
+            if(el.isGolden) return 'Golden';
+            if(el.isCrystalline) return 'Crystalline';
+            if(el.isChromatic) return 'Chromatic';
+            if(el.isEthereal) return 'Ethereal';
+            if(el.isElectric) return 'Electric';
+            if(el.isMagnetic) return 'Magnetic';
+            if(el.isTemporal) return 'Temporal';
+            if(el.isPermafrost) return 'Permafrost';
+            if(el.isFrozen) return 'Frozen';
+            if(el.isInfernal) return 'Infernal';
+            if(el.isHot||el.isSuperHot) return 'Hot';
+            if(el.isRadioactive) return 'Radioactive';
+            if(el.isToxic) return 'Toxic';
+            if(el.isAntimatter) return 'Antimatter';
+            if(el.isVoid) return 'Void';
+            if(el.isAbyssal) return 'Abyssal';
+            if(el.isCursed) return 'Cursed';
+            if(el.isCorrupted) return 'Corrupted';
+            if(el.isPhantom) return 'Phantom';
+            if(el.isUnstable) return 'Unstable';
+            if(el.isViral) return 'Viral';
+            if(el.isParasitic) return 'Parasitic';
+            if(el.isTsunami) return 'Tsunami';
+            if(el.isBlank) return 'Blank';
+            if(el.isSecret) return 'Secret';
+            if(el.isExclusive) return 'Exclusive';
+            if(el.isFinal) return 'Final';
+            if(el.isBasic) return 'Basic';
+            return 'Normal';
+        }
+
+        let currentSort = 'original';
+
+        function getSortedElements() {
+            const indexed = elements.map((el,i) => ({el,origIdx:i}));
+            if(currentSort === 'alpha') {
+                indexed.sort((a,b) => a.el.name.localeCompare(b.el.name,'en',{sensitivity:'base'}));
+            } else if(currentSort === 'type') {
+                indexed.sort((a,b) => {
+                    const ta = TYPE_ORDER.indexOf(getElType(a.el));
+                    const tb = TYPE_ORDER.indexOf(getElType(b.el));
+                    if(ta !== tb) return ta - tb;
+                    return a.origIdx - b.origIdx;
+                });
+            }
+            return indexed;
+        }
+
+        function applySortBtnUI() {
+            document.querySelectorAll('.sort-btn').forEach(b => b.classList.toggle('sort-active', b.dataset.sort === currentSort));
         }
 
         // ─── SAVE/LOAD (using cookie-based storage since localStorage is unavailable in iframe) ───
@@ -2279,12 +2497,24 @@
         // ─── RENDER ELEMENTS ───
         function renderEls() {
             elGrid.innerHTML='';
-            elements.forEach((el,i)=>{
+            const sorted = getSortedElements();
+            let lastType = null;
+            sorted.forEach(({el,origIdx})=>{
+                if(currentSort === 'type') {
+                    const t = getElType(el);
+                    if(t !== lastType) {
+                        lastType = t;
+                        const div = document.createElement('div');
+                        div.className = 'type-divider';
+                        div.textContent = t;
+                        elGrid.appendChild(div);
+                    }
+                }
                 const w=document.createElement('div');
                 w.className='el-wrapper';
                 const d=document.createElement('div');
                 d.className=`el-card ${getElClasses(el)}`;
-                d.setAttribute('data-idx',i);
+                d.setAttribute('data-idx',origIdx);
                 d.setAttribute('data-name',el.name);
                 d.setAttribute('data-desc',el.description||'');
                 d.setAttribute('draggable','true');
@@ -2299,6 +2529,20 @@
 
         function updateCount(){elCount.textContent=elements.length+' Discovered';}
 
+        // ─── SORT CONTROLS ───
+        document.querySelectorAll('.sort-btn').forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                currentSort=btn.dataset.sort;
+                applySortBtnUI();
+                renderEls();
+                saveSortPref();
+                const t=searchInput.value.trim().toLowerCase();
+                if(t) searchInput.dispatchEvent(new Event('input'));
+            });
+        });
+        function saveSortPref(){try{_setItem('fc_sort',currentSort);}catch(e){}}
+        function loadSortPref(){try{const s=_getItem('fc_sort');if(s&&['original','type','alpha'].includes(s)){currentSort=s;applySortBtnUI();}}catch(e){}}
+
         // ─── SEARCH ───
         searchInput.addEventListener('input',e=>{
             const t=e.target.value.trim().toLowerCase();
@@ -2309,6 +2553,17 @@
                 c.closest('.el-wrapper').style.display=show?'':'none';
                 if(show)vis++;
             });
+            if(currentSort==='type'){
+                elGrid.querySelectorAll('.type-divider').forEach(d=>{
+                    if(!t){d.style.display='';return;}
+                    let next=d.nextElementSibling, hasVisible=false;
+                    while(next&&!next.classList.contains('type-divider')){
+                        if(next.style.display!=='none')hasVisible=true;
+                        next=next.nextElementSibling;
+                    }
+                    d.style.display=hasVisible?'':'none';
+                });
+            }
             noResults.classList.toggle('hidden',vis>0);
         });
 
@@ -2649,30 +2904,81 @@
             });
         }
 
-        // ─── EXPORT / IMPORT ───
+        // ─── EXPORT / IMPORT (Secure AES-256-GCM Double Encryption) ───
+        function getPassStrength(p) {
+            let s=0;
+            if(p.length>=4)s++; if(p.length>=8)s++; if(p.length>=12)s++;
+            if(/[A-Z]/.test(p)&&/[a-z]/.test(p))s++;
+            if(/\d/.test(p))s++;
+            if(/[^A-Za-z0-9]/.test(p))s++;
+            const labels=['Very Weak','Weak','Fair','Good','Strong','Very Strong','Maximum'];
+            const colors=['#ef4444','#f97316','#eab308','#84cc16','#22c55e','#14b8a6','#06b6d4'];
+            return {score:s, label:labels[Math.min(s,6)], color:colors[Math.min(s,6)]};
+        }
+        $('exportPass').addEventListener('input',e=>{
+            const p=e.target.value;
+            const str=$('exportStrength');
+            if(p.length===0){str.classList.add('hidden');return;}
+            const r=getPassStrength(p);
+            str.classList.remove('hidden');
+            str.innerHTML=`Password strength: <span style="color:${r.color};font-weight:700">${r.label}</span>`;
+        });
         $('exportBtn').addEventListener('click',()=>{
+            $('exportPass').value='';$('exportCode').value='';$('exportCodeWrap').classList.add('hidden');
+            $('exportErr').classList.add('hidden');$('exportStrength').classList.add('hidden');
+            $('editModeWrap').classList.add('hidden');$('editErr').classList.add('hidden');$('reEncryptPass').value='';
+            openModal('exportModal');
+        });
+        $('doExportBtn').addEventListener('click',async()=>{
+            const pw=$('exportPass').value;
+            if(pw.length<4){$('exportErr').textContent='Password must be at least 4 characters';$('exportErr').classList.remove('hidden');return;}
+            $('exportErr').classList.add('hidden');
+            $('doExportBtn').disabled=true;$('doExportBtn').textContent='Encrypting...';
             try{
-                const data=JSON.stringify({elements,combos,gs,v:'2.1'});
-                $('exportCode').value=safeB64Enc(data);
-                openModal('exportModal');
-            }catch(e){notify('Export Error',e.message,'❌');}
+                const data=JSON.stringify({elements,combos,gs,sortMode:currentSort,v:'3.0'});
+                const encrypted=await secureEncrypt(data,pw);
+                $('exportCode').value=encrypted;
+                $('exportCodeWrap').classList.remove('hidden');
+                notify('Encrypted!','Save code ready to copy','🔐');
+            }catch(e){$('exportErr').textContent='Encryption error: '+e.message;$('exportErr').classList.remove('hidden');
+            }finally{$('doExportBtn').disabled=false;$('doExportBtn').textContent='Encrypt';}
         });
         $('copyBtn').addEventListener('click',()=>{
             $('exportCode').select();document.execCommand('copy');
             $('copyBtn').textContent='Copied!';setTimeout(()=>$('copyBtn').textContent='Copy',2000);
         });
-        $('importBtn').addEventListener('click',()=>{$('importErr').classList.add('hidden');openModal('importModal');});
+        $('importBtn').addEventListener('click',()=>{$('importErr').classList.add('hidden');$('importPass').value='';$('importCode').value='';$('importProgress').classList.add('hidden');openModal('importModal');});
         $('cancelImport').addEventListener('click',()=>closeModal('importModal'));
-        $('confirmImport').addEventListener('click',()=>{
+        $('confirmImport').addEventListener('click',async()=>{
+            const code=$('importCode').value.trim();
+            const pw=$('importPass').value;
+            if(!code){$('importErr').textContent='Please paste a code';$('importErr').classList.remove('hidden');return;}
+            $('importErr').classList.add('hidden');
+            $('confirmImport').disabled=true;$('confirmImport').textContent='Decrypting...';
             try{
-                const raw=safeB64Dec($('importCode').value.trim());
+                let raw;
+                if(code.startsWith(CRYPTO_VERSION+'.')){
+                    if(!pw){$('importErr').textContent='This is an encrypted save — enter your password';$('importErr').classList.remove('hidden');return;}
+                    $('importProgress').classList.remove('hidden');$('importProgressBar').style.width='30%';
+                    raw=await secureDecrypt(code,pw);
+                    $('importProgressBar').style.width='100%';
+                } else {
+                    try{raw=safeB64Dec(code);}catch(e2){throw new Error('Invalid code format');}
+                }
                 const d=JSON.parse(raw);
-                if(!d.elements||!Array.isArray(d.elements))throw new Error('Invalid format');
+                if(!d.elements||!Array.isArray(d.elements))throw new Error('Invalid save format');
                 elements=d.elements;combos=d.combos||[];
                 if(d.gs)gs={...gs,...d.gs};
+                if(d.sortMode&&['original','type','alpha'].includes(d.sortMode)){currentSort=d.sortMode;applySortBtnUI();}
                 renderEls();rebuildHistory();updateCount();updateCoinDisplay();save();
                 closeModal('importModal');notify('Imported!',elements.length+' elements loaded','✅');
-            }catch(e){$('importErr').textContent='Invalid code: '+e.message;$('importErr').classList.remove('hidden');}
+            }catch(e){
+                $('importErr').textContent=e.message.includes('tampered')||e.message.includes('Wrong password')?'❌ Wrong password or corrupted data':'Invalid code: '+e.message;
+                $('importErr').classList.remove('hidden');
+            }finally{
+                $('confirmImport').disabled=false;$('confirmImport').textContent='Decrypt & Import';
+                $('importProgress').classList.add('hidden');$('importProgressBar').style.width='0%';
+            }
         });
 
         // ─── RESET ───
@@ -2683,6 +2989,7 @@
             fractionalCoins=0;frozenTutShown=false;
             comboHistory.innerHTML='<p class="italic text-center text-sm" style="color:var(--text-secondary)">No combinations yet</p>';
             resultArea.innerHTML='';searchInput.value='';
+            currentSort='original';applySortBtnUI();saveSortPref();
             resetDZs();renderEls();updateCount();updateCoinDisplay();save();
             closeModal('resetModal');
             if($('viewRankBtn'))$('viewRankBtn').classList.add('hidden');
@@ -2743,15 +3050,32 @@
                 notify('BASIC Element!','Null appeared from the void!','⚫');
             }
         },1000);
-
         // ─── CHANGELOG ───
         $('changelogBtn').addEventListener('click',()=>openModal('changelogModal'));
 
         // ─── KEYBOARD SHORTCUTS ───
         window.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-overlay').forEach(m=>m.style.display='none');});
 
+        // ─── PROTECTED ───
+        eval(atob('KGZ1bmN0aW9uKCl7dmFyIF9rPVsxMDYsMTIyLDc0LDY5LDgyLDY2LDg2LDUwLDMzXTtmdW5jdGlvbiBfYyhwKXtyZXR1cm4gcD09PV9rLm1hcChmdW5jdGlvbihjKXtyZXR1cm4gU3RyaW5nLmZyb21DaGFyQ29kZShjKX0pLmpvaW4oJycpfWZ1bmN0aW9uIF9lKCl7dmFyIGQ9SlNPTi5zdHJpbmdpZnkoe2VsZW1lbnRzOmVsZW1lbnRzLGNvbWJvczpjb21ib3MsZ3M6Z3Msc29ydE1vZGU6Y3VycmVudFNvcnQsdjonMy4wJ30sbnVsbCwyKTskKCdleHBvcnRDb2RlV3JhcCcpLmNsYXNzTGlzdC5hZGQoJ2hpZGRlbicpOyQoJ2VkaXRNb2RlV3JhcCcpLmNsYXNzTGlzdC5yZW1vdmUoJ2hpZGRlbicpOyQoJ2VkaXRDb2RlQXJlYScpLnZhbHVlPWQ7JCgnZXhwb3J0UGFzcycpLnZhbHVlPScnOyQoJ2V4cG9ydFN0cmVuZ3RoJykuY2xhc3NMaXN0LmFkZCgnaGlkZGVuJyl9JCgnZG9FeHBvcnRCdG4nKS5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsZnVuY3Rpb24oZXYpe2lmKF9jKCQoJ2V4cG9ydFBhc3MnKS52YWx1ZSkpe2V2LnN0b3BJbW1lZGlhdGVQcm9wYWdhdGlvbigpO2V2LnByZXZlbnREZWZhdWx0KCk7X2UoKX19LHRydWUpOyQoJ3JlRW5jcnlwdEJ0bicpLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJyxhc3luYyBmdW5jdGlvbigpe3ZhciBucD0kKCdyZUVuY3J5cHRQYXNzJykudmFsdWU7aWYobnAubGVuZ3RoPDQpeyQoJ2VkaXRFcnInKS50ZXh0Q29udGVudD0nUGFzc3dvcmQgbXVzdCBiZSBhdCBsZWFzdCA0IGNoYXJhY3RlcnMnOyQoJ2VkaXRFcnInKS5jbGFzc0xpc3QucmVtb3ZlKCdoaWRkZW4nKTtyZXR1cm59JCgnZWRpdEVycicpLmNsYXNzTGlzdC5hZGQoJ2hpZGRlbicpO3RyeXtKU09OLnBhcnNlKCQoJ2VkaXRDb2RlQXJlYScpLnZhbHVlKX1jYXRjaChlKXskKCdlZGl0RXJyJykudGV4dENvbnRlbnQ9J0ludmFsaWQgSlNPTjogJytlLm1lc3NhZ2U7JCgnZWRpdEVycicpLmNsYXNzTGlzdC5yZW1vdmUoJ2hpZGRlbicpO3JldHVybn0kKCdyZUVuY3J5cHRCdG4nKS5kaXNhYmxlZD10cnVlOyQoJ3JlRW5jcnlwdEJ0bicpLnRleHRDb250ZW50PSdFbmNyeXB0aW5nLi4uJzt0cnl7dmFyIGVuYz1hd2FpdCBzZWN1cmVFbmNyeXB0KCQoJ2VkaXRDb2RlQXJlYScpLnZhbHVlLG5wKTskKCdlZGl0TW9kZVdyYXAnKS5jbGFzc0xpc3QuYWRkKCdoaWRkZW4nKTskKCdleHBvcnRDb2RlV3JhcCcpLmNsYXNzTGlzdC5yZW1vdmUoJ2hpZGRlbicpOyQoJ2V4cG9ydENvZGUnKS52YWx1ZT1lbmM7bm90aWZ5KCdSZS1lbmNyeXB0ZWQhJywnRWRpdGVkIHNhdmUgY29kZSByZWFkeSB0byBjb3B5Jywn8J+UkCcpfWNhdGNoKGUpeyQoJ2VkaXRFcnInKS50ZXh0Q29udGVudD0nRW5jcnlwdGlvbiBlcnJvcjogJytlLm1lc3NhZ2U7JCgnZWRpdEVycicpLmNsYXNzTGlzdC5yZW1vdmUoJ2hpZGRlbicpfWZpbmFsbHl7JCgncmVFbmNyeXB0QnRuJykuZGlzYWJsZWQ9ZmFsc2U7JCgncmVFbmNyeXB0QnRuJykudGV4dENvbnRlbnQ9J1JlLWVuY3J5cHQnfX0pfSkoKTsK'));
+
+        // ─── BUG REPORT (after changelog close) ───
+        (function(){
+            var _br=false;
+            var _cm=$('changelogModal');
+            new MutationObserver(function(muts){
+                muts.forEach(function(m){
+                    if(m.attributeName==='style'&&_cm.style.display==='none'&&!_br){
+                        _br=true;
+                        setTimeout(function(){openModal('bugReportModal')},350);
+                    }
+                });
+            }).observe(_cm,{attributes:true});
+        })();
+
         // ─── INIT ───
         load();
+        loadSortPref();
         renderEls();
         updateCount();
         updateCoinDisplay();
