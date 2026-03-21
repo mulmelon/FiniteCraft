@@ -119,6 +119,7 @@
         .badge-abyssal { background: linear-gradient(135deg,#0c4a6e,#164e63,#083344); color: #a5f3fc; }
         .badge-celestial { background: linear-gradient(135deg,#1e1b4b,#312e81,#fbbf24); color: #fef3c7; }
         .badge-electric { background: linear-gradient(135deg,#854d0e,#eab308,#facc15); color: #422006; }
+        .badge-purified { background: linear-gradient(135deg,#d1d5db,#f3f4f6,#ffffff); color: #374151; }
 
         /* Special element styles */
         @keyframes pulseGlow { 0%,100%{box-shadow:0 0 6px rgba(0,200,83,0.4)} 50%{box-shadow:0 0 18px rgba(0,200,83,0.7)} }
@@ -156,6 +157,39 @@
         @keyframes thawedShine { 0%,100%{box-shadow:0 0 6px rgba(234,179,8,0.3)} 50%{box-shadow:0 0 20px rgba(234,179,8,0.5)} }
         .frost-tut-melt-bar { position:absolute; bottom:0; left:0; height:3px; width:100%; background:linear-gradient(90deg,#ef4444,#f59e0b,#22c55e); border-radius:0 0 12px 12px; animation: meltFill 2s ease-in-out infinite; }
         @keyframes meltFill { 0%{width:0%} 70%{width:100%} 100%{width:100%} }
+
+        /* Generic tutorial demo cards */
+        .tut-demo { margin: 0 auto 8px; }
+        .tut-row { display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; }
+        .tut-plus { font-size:1.4rem; font-weight:700; color:var(--text-secondary); }
+        .tut-arrow { display:flex; justify-content:center; margin:8px 0; animation:arrowBounce 1.2s ease-in-out infinite; }
+        .tut-card { position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; width:100px; height:90px; border-radius:14px; border:2px solid var(--border); background:var(--bg-primary); overflow:hidden; }
+        .tut-emoji { font-size:1.8rem; z-index:2; }
+        .tut-label { font-size:0.7rem; font-weight:600; margin-top:4px; z-index:2; color:var(--text-primary); }
+        /* Final tutorial card */
+        .final-tut-card { border-color:var(--gold); background:linear-gradient(135deg,#d4a017,#f0c040)!important; animation: finalGlow 3s infinite; }
+        .final-tut-card .tut-label { color:#1a1a2e!important; }
+        .final-tut-card::before { content:''; position:absolute; inset:0; background:linear-gradient(45deg,transparent,rgba(255,255,255,0.15),transparent); transform:rotate(45deg); animation:shine 3s linear infinite; }
+        /* Permafrost tutorial card */
+        .permafrost-tut-card { border-color:#0ea5e9; background:linear-gradient(135deg,#0c4a6e,#0ea5e9,#a5f3fc)!important; animation: permafrostShimmer 3s infinite; }
+        .permafrost-tut-card .tut-label { color:#f0f9ff!important; }
+        .permafrost-tut-card .tut-lock { position:absolute; top:4px; left:6px; font-size:0.6rem; }
+        .permafrost-tut-card::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(60deg,transparent,transparent 8px,rgba(255,255,255,0.05) 8px,rgba(255,255,255,0.05) 16px); border-radius:12px; }
+        /* Secret tutorial card */
+        .secret-tut-card { border-color:#333; background:linear-gradient(135deg,#111,#333)!important; animation: secretGlow 3s infinite; }
+        .secret-tut-card .tut-label { color:#fff!important; }
+        .secret-tut-card .tut-emoji { filter:drop-shadow(0 0 6px rgba(255,255,255,0.3)); }
+        /* Error tutorial card */
+        .error-tut-card { border-color:#dc2626; background:linear-gradient(135deg,#dc2626,#111)!important; animation: glitchError 1.5s infinite; }
+        .error-tut-card .tut-label { color:#fff!important; }
+        /* Fatal Error tutorial card */
+        .fatal-tut-card { border-color:#7f1d1d; background:linear-gradient(135deg,#7f1d1d,#000)!important; animation: fatalGlitch 2s infinite; }
+        .fatal-tut-card .tut-label { color:#fff!important; }
+        /* Blocked X overlay */
+        .tut-blocked { position:relative; }
+        .tut-blocked::after { content:'✕'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:2.5rem; font-weight:900; color:rgba(239,68,68,0.5); z-index:3; }
+        /* Unlock combo card */
+        .tut-unlock-card { border-color:#a855f6; border-style:dashed; }
 
         @keyframes hotGlow { 0%,100%{box-shadow:0 0 5px rgba(239,68,68,0.4)} 50%{box-shadow:0 0 14px rgba(239,68,68,0.7)} }
         .hot-el { animation: hotGlow 3s infinite; }
@@ -325,6 +359,32 @@
         .electric-el::before { content:''; position:absolute; inset:0; background:linear-gradient(45deg,transparent 40%,rgba(250,204,21,0.2) 45%,transparent 50%,transparent 65%,rgba(250,204,21,0.15) 70%,transparent 75%); border-radius:12px; }
         .electric-el::after { content:'⚡'; position:absolute; top:3px; left:3px; font-size:0.55rem; z-index:2; }
 
+        /* ─── PURIFIED ─── */
+        @keyframes purifiedShimmer { 0%{background-position:200% center} 100%{background-position:-200% center} }
+        @keyframes purifiedGlow { 0%,100%{box-shadow:0 0 8px rgba(192,192,192,0.4),0 0 16px rgba(229,231,235,0.2)} 50%{box-shadow:0 0 20px rgba(192,192,192,0.7),0 0 40px rgba(229,231,235,0.4),0 0 60px rgba(255,255,255,0.15)} }
+        .purified-el { animation: purifiedShimmer 3s linear infinite, purifiedGlow 3s ease-in-out infinite; background:linear-gradient(90deg,#9ca3af,#d1d5db,#f3f4f6,#ffffff,#f3f4f6,#d1d5db,#9ca3af)!important; background-size:200% 100%; color:#1f2937!important; border:1px solid rgba(229,231,235,0.6)!important; }
+        .purified-el::before { content:''; position:absolute; inset:0; background:linear-gradient(45deg,transparent 30%,rgba(255,255,255,0.4) 45%,rgba(255,255,255,0.6) 50%,rgba(255,255,255,0.4) 55%,transparent 70%); background-size:200% 200%; animation:purifiedShimmer 3s linear infinite; border-radius:12px; pointer-events:none; }
+        .purified-el::after { content:'🪽'; position:absolute; top:3px; left:3px; font-size:0.55rem; z-index:2; }
+
+        /* ─── STAR FORGE BUTTON ─── */
+        @keyframes starForgeIdle { 0%,100%{box-shadow:0 0 6px rgba(99,102,241,0.3),0 0 12px rgba(168,85,246,0.15)} 50%{box-shadow:0 0 14px rgba(99,102,241,0.5),0 0 28px rgba(168,85,246,0.25),0 0 4px rgba(251,191,36,0.3)} }
+        @keyframes starForgeReady { 0%{box-shadow:0 0 8px rgba(251,191,36,0.5),0 0 16px rgba(168,85,246,0.3)} 50%{box-shadow:0 0 20px rgba(251,191,36,0.7),0 0 40px rgba(168,85,246,0.4),0 0 6px rgba(255,255,255,0.4)} 100%{box-shadow:0 0 8px rgba(251,191,36,0.5),0 0 16px rgba(168,85,246,0.3)} }
+        #starForgeBtn {
+            background:linear-gradient(135deg,#1e1b4b,#312e81,#4c1d95); color:#e0e7ff;
+            border:1px solid rgba(139,92,246,0.4); border-radius:10px; padding:4px 10px;
+            font-size:0.7rem; font-weight:700; cursor:pointer; transition:all 0.3s;
+            animation: starForgeIdle 3s infinite; position:relative; letter-spacing:0.3px;
+            font-family:'Lexend',sans-serif; display:inline-flex; align-items:center; gap:4px;
+        }
+        #starForgeBtn:not(.sf-cooldown):hover { filter:brightness(1.3); transform:scale(1.05); }
+        #starForgeBtn:not(.sf-cooldown) { animation: starForgeReady 2s infinite; border-color:rgba(251,191,36,0.5); }
+        #starForgeBtn.sf-cooldown { opacity:0.55; cursor:not-allowed; filter:grayscale(0.4); animation: starForgeIdle 4s infinite; }
+        #starForgeBtn.sf-locked { opacity:0.35; cursor:not-allowed; filter:grayscale(0.7); pointer-events:none; animation: starForgeIdle 5s infinite; position:relative; }
+        #starForgeBtn.sf-locked::after { content:'🔒'; position:absolute; right:-2px; top:-6px; font-size:0.6rem; }
+        .sf-timer { font-size:0.6rem; font-weight:400; opacity:0.8; margin-left:2px; }
+        @keyframes starForgeActivate { 0%{transform:scale(1)} 20%{transform:scale(1.15)} 40%{transform:scale(0.95)} 60%{transform:scale(1.08)} 80%{transform:scale(0.98)} 100%{transform:scale(1)} }
+        .sf-activate { animation: starForgeActivate 0.6s ease-out!important; }
+
         .melt-bar { position:absolute; bottom:0; left:0; height:3px; background:#ef4444; z-index:2; transition:width 0.3s; border-radius:0 0 12px 12px; }
 
         @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
@@ -470,7 +530,8 @@
                     <input type="text" id="searchInput" placeholder="Search..." class="w-full px-4 py-2 pr-9 rounded-xl text-sm">
                     <svg class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2" style="color:var(--text-secondary)" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 </div>
-                <div class="flex gap-1.5 order-2 sm:order-3">
+                <div class="flex gap-1.5 order-2 sm:order-3 items-center">
+                    <button id="starForgeBtn" title="Star Forge — Bestow 5 random elements with special blessings (5 min cooldown)">🌟 Star Forge<span class="sf-timer" id="sfTimer"></span></button>
                     <button id="exportBtn" class="text-xs font-medium px-3 py-1.5 rounded-lg transition-colors" style="background:rgba(34,197,94,0.12);color:#16a34a">Export</button>
                     <button id="importBtn" class="text-xs font-medium px-3 py-1.5 rounded-lg transition-colors" style="background:rgba(59,130,246,0.12);color:#3b82f6">Import</button>
                     <button id="resetBtn" class="text-xs font-medium px-3 py-1.5 rounded-lg transition-colors" style="background:rgba(239,68,68,0.08);color:#ef4444">Reset</button>
@@ -641,6 +702,169 @@
         <button class="font-semibold text-sm py-2.5 px-8 rounded-full" style="background:var(--gold);color:#1a1a2e" data-close="frozenTutModal">Got it!</button>
     </div></div>
         </div>
+    </div></div>
+
+    <!-- isFinal Tutorial Modal -->
+    <div id="finalTutModal" class="modal-overlay"><div class="modal-box text-center" style="max-width:460px;border-color:var(--gold)">
+        <button class="modal-close" data-close="finalTutModal">&times;</button>
+        <h2 class="font-display text-xl mb-2" style="color:var(--gold)">⭐ Final Element!</h2>
+        <p class="text-sm mb-5" style="color:var(--text-secondary)">You discovered a <strong style="color:var(--gold)">Final</strong> element! These prestigious elements <strong style="color:#ef4444">cannot be combined</strong> any further.</p>
+        <div class="tut-demo">
+            <div class="tut-row">
+                <div class="tut-card final-tut-card tut-blocked">
+                    <span class="tut-emoji">⭐</span>
+                    <span class="tut-label">Final Element</span>
+                </div>
+                <div class="tut-plus">+</div>
+                <div class="tut-card">
+                    <span class="tut-emoji">❓</span>
+                    <span class="tut-label">Anything</span>
+                </div>
+            </div>
+            <div class="tut-arrow">
+                <svg width="24" height="40" viewBox="0 0 24 40"><path d="M12 0 L12 30 M4 22 L12 30 L20 22" stroke="#ef4444" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+            </div>
+            <div class="tut-row">
+                <div class="tut-card" style="border-color:#ef4444;background:rgba(239,68,68,0.1)">
+                    <span class="tut-emoji">🚫</span>
+                    <span class="tut-label">Blocked!</span>
+                </div>
+            </div>
+        </div>
+        <div class="rounded-xl p-3 mt-4 mb-4 text-left text-xs space-y-2" style="background:var(--bg-primary);border:1px solid var(--border);color:var(--text-secondary)">
+            <p>⭐ <strong style="color:var(--text-primary)">Final elements</strong> are the end of a combination chain</p>
+            <p>🏆 <strong style="color:var(--text-primary)">Collect them all</strong> — they count toward your rank!</p>
+            <p>💰 <strong style="color:var(--text-primary)">High value</strong> — they generate more coins over time</p>
+        </div>
+        <button class="font-semibold text-sm py-2.5 px-8 rounded-full" style="background:var(--gold);color:#1a1a2e" data-close="finalTutModal">Got it!</button>
+    </div></div>
+
+    <!-- isPermafrost Tutorial Modal -->
+    <div id="permafrostTutModal" class="modal-overlay"><div class="modal-box text-center" style="max-width:460px;border-color:#0ea5e9">
+        <button class="modal-close" data-close="permafrostTutModal">&times;</button>
+        <h2 class="font-display text-xl mb-2" style="color:#0ea5e9">🔒 Permafrost Element!</h2>
+        <p class="text-sm mb-5" style="color:var(--text-secondary)">This element is <strong style="color:#0ea5e9">permanently frozen</strong> and <strong style="color:#ef4444">cannot be thawed</strong> — not even fire can melt it! However, it can be combined with <strong style="color:#a855f6">specific elements</strong>.</p>
+        <div class="tut-demo">
+            <div class="tut-row">
+                <div class="tut-card permafrost-tut-card tut-blocked">
+                    <span class="tut-lock">🔒</span>
+                    <span class="tut-emoji">🧊</span>
+                    <span class="tut-label">Permafrost</span>
+                </div>
+                <div class="tut-plus">+</div>
+                <div class="tut-card heat-demo">
+                    <span class="tut-emoji">🔥</span>
+                    <span class="tut-label">Fire / Hot</span>
+                </div>
+            </div>
+            <div class="tut-arrow">
+                <svg width="24" height="40" viewBox="0 0 24 40"><path d="M12 0 L12 30 M4 22 L12 30 L20 22" stroke="#ef4444" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+            </div>
+            <div class="tut-row">
+                <div class="tut-card" style="border-color:#ef4444;background:rgba(239,68,68,0.1)">
+                    <span class="tut-emoji">🚫</span>
+                    <span class="tut-label">Still Frozen!</span>
+                </div>
+            </div>
+        </div>
+        <div class="rounded-xl p-3 mt-4 mb-4 text-left text-xs space-y-2" style="background:var(--bg-primary);border:1px solid var(--border);color:var(--text-secondary)">
+            <p>🔒 <strong style="color:#0ea5e9">Cannot be thawed</strong> — fire and heat have no effect</p>
+            <p>🧩 <strong style="color:#a855f6">Special combos only</strong> — try combining with specific elements to discover recipes</p>
+            <p>❄️ <strong style="color:var(--text-primary)">Different from Frozen</strong> — regular frozen elements can be melted, permafrost cannot</p>
+        </div>
+        <button class="font-semibold text-sm py-2.5 px-8 rounded-full" style="background:#0ea5e9;color:#0c2d48" data-close="permafrostTutModal">Got it!</button>
+    </div></div>
+
+    <!-- isSecret Tutorial Modal -->
+    <div id="secretTutModal" class="modal-overlay"><div class="modal-box text-center" style="max-width:460px;border-color:#333">
+        <button class="modal-close" data-close="secretTutModal">&times;</button>
+        <h2 class="font-display text-xl mb-2" style="color:#c084fc">🔮 Secret Element!</h2>
+        <p class="text-sm mb-5" style="color:var(--text-secondary)">You found your first <strong style="color:#c084fc">secret</strong> element! Secret elements are hidden discoveries that give <strong style="color:var(--gold)">more money</strong> and most of them <strong style="color:#ef4444">cannot be combined</strong> further.</p>
+        <div class="tut-demo">
+            <div class="tut-row">
+                <div class="tut-card secret-tut-card">
+                    <span class="tut-emoji">🔮</span>
+                    <span class="tut-label">Secret</span>
+                </div>
+            </div>
+        </div>
+        <div class="rounded-xl p-3 mt-4 mb-4 text-left text-xs space-y-2" style="background:var(--bg-primary);border:1px solid var(--border);color:var(--text-secondary)">
+            <p>🔮 <strong style="color:#c084fc">Hidden discoveries</strong> — found through unexpected combinations</p>
+            <p>💰 <strong style="color:var(--gold)">Extra coins</strong> — secret elements generate more money than regular ones</p>
+            <p>🚫 <strong style="color:var(--text-primary)">Most are endpoints</strong> — most secret elements cannot be combined further</p>
+            <p>🔍 <strong style="color:var(--text-primary)">Keep experimenting!</strong> — there are many more secrets to uncover</p>
+        </div>
+        <button class="font-semibold text-sm py-2.5 px-8 rounded-full" style="background:linear-gradient(135deg,#111,#333);color:#fff;border:1px solid #555" data-close="secretTutModal">Got it!</button>
+    </div></div>
+
+    <!-- Error Tutorial Modal -->
+    <div id="errorTutModal" class="modal-overlay"><div class="modal-box text-center" style="max-width:460px;border-color:#dc2626">
+        <button class="modal-close" data-close="errorTutModal">&times;</button>
+        <h2 class="font-display text-xl mb-2" style="color:#dc2626">⚠️ Error Element!</h2>
+        <p class="text-sm mb-5" style="color:var(--text-secondary)">You created an <strong style="color:#dc2626">Error</strong> — a glitched element! Errors <strong style="color:#ef4444">corrupt</strong> anything they touch, turning combinations into more errors... <strong style="color:#a855f6">unless</strong> you combine them with specific elements.</p>
+        <div class="tut-demo">
+            <div class="tut-row">
+                <div class="tut-card error-tut-card">
+                    <span class="tut-emoji">⚠️</span>
+                    <span class="tut-label">Error</span>
+                </div>
+                <div class="tut-plus">+</div>
+                <div class="tut-card">
+                    <span class="tut-emoji">❓</span>
+                    <span class="tut-label">Most Things</span>
+                </div>
+            </div>
+            <div class="tut-arrow">
+                <svg width="24" height="40" viewBox="0 0 24 40"><path d="M12 0 L12 30 M4 22 L12 30 L20 22" stroke="#dc2626" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+            </div>
+            <div class="tut-row">
+                <div class="tut-card error-tut-card">
+                    <span class="tut-emoji">⚠️</span>
+                    <span class="tut-label">Error</span>
+                </div>
+            </div>
+        </div>
+        <div class="rounded-xl p-3 mt-4 mb-4 text-left text-xs space-y-2" style="background:var(--bg-primary);border:1px solid var(--border);color:var(--text-secondary)">
+            <p>⚠️ <strong style="color:#dc2626">Glitched</strong> — errors spread to most combinations</p>
+            <p>🧩 <strong style="color:#a855f6">Special combos exist</strong> — some elements can interact with errors in unique ways</p>
+            <p>💀 <strong style="color:var(--text-primary)">Error + Error</strong> — combining two errors creates something even worse...</p>
+        </div>
+        <button class="font-semibold text-sm py-2.5 px-8 rounded-full" style="background:#dc2626;color:#fff" data-close="errorTutModal">Got it!</button>
+    </div></div>
+
+    <!-- Fatal Error Tutorial Modal -->
+    <div id="fatalErrorTutModal" class="modal-overlay"><div class="modal-box text-center" style="max-width:460px;border-color:#7f1d1d">
+        <button class="modal-close" data-close="fatalErrorTutModal">&times;</button>
+        <h2 class="font-display text-xl mb-2" style="color:#991b1b">💀 Fatal Error!</h2>
+        <p class="text-sm mb-5" style="color:var(--text-secondary)">You created a <strong style="color:#991b1b">Fatal Error</strong> — the most dangerous glitched element! Fatal Errors <strong style="color:#ef4444">cannot be combined</strong> with almost anything... <strong style="color:#a855f6">unless</strong> you find the right element.</p>
+        <div class="tut-demo">
+            <div class="tut-row">
+                <div class="tut-card fatal-tut-card tut-blocked">
+                    <span class="tut-emoji">💀</span>
+                    <span class="tut-label">Fatal Error</span>
+                </div>
+                <div class="tut-plus">+</div>
+                <div class="tut-card">
+                    <span class="tut-emoji">❓</span>
+                    <span class="tut-label">Most Things</span>
+                </div>
+            </div>
+            <div class="tut-arrow">
+                <svg width="24" height="40" viewBox="0 0 24 40"><path d="M12 0 L12 30 M4 22 L12 30 L20 22" stroke="#7f1d1d" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+            </div>
+            <div class="tut-row">
+                <div class="tut-card" style="border-color:#7f1d1d;background:rgba(127,29,29,0.15)">
+                    <span class="tut-emoji">💥</span>
+                    <span class="tut-label">BLOCKED!</span>
+                </div>
+            </div>
+        </div>
+        <div class="rounded-xl p-3 mt-4 mb-4 text-left text-xs space-y-2" style="background:var(--bg-primary);border:1px solid var(--border);color:var(--text-secondary)">
+            <p>💀 <strong style="color:#991b1b">Critically glitched</strong> — blocks almost all combinations</p>
+            <p>🧩 <strong style="color:#a855f6">One way out</strong> — there is a specific element that can interact with it</p>
+            <p>⚠️ <strong style="color:var(--text-primary)">Worse than Error</strong> — regular errors spread, but fatal errors completely shut down</p>
+        </div>
+        <button class="font-semibold text-sm py-2.5 px-8 rounded-full" style="background:#7f1d1d;color:#fff" data-close="fatalErrorTutModal">Got it!</button>
     </div></div>
 
     <!-- Changelog Button & Modal -->
@@ -1993,10 +2217,11 @@
             'Charybdis+Hadal Zone':{name:'Lord of the Deep',emoji:'👑',color:'bg-slate-950',description:'Sovereign of the crushing dark',isAbyssal:true,isFinal:true},
 
             // ═══════════ CELESTIAL — Cosmic power, blesses results ═══════════
-            'Star+Spell':{name:'Starforge',emoji:'🌟',color:'bg-indigo-800',description:'Where new stars are born from magic',isCelestial:true},
+            'Time Warp+Star':{name:'Stellar Crucible',emoji:'🌟',color:'bg-indigo-800',description:'Time-forged cradle where new stars ignite',isCelestial:true},
             'Constellation+Energy':{name:'Celestial Power',emoji:'✨',color:'bg-indigo-700',description:'Energy drawn from the stars',isCelestial:true},
             'Space+Blessing':{name:'Celestial Gate',emoji:'🚪',color:'bg-indigo-600',description:'Portal to the heavens',isCelestial:true,isBlessed:true},
-            'Starforge+Starforge':{name:'Stellar Core',emoji:'☀️',color:'bg-amber-700',description:'Heart of a newborn star',isCelestial:true},
+            'Stellar Crucible+Time Warp':{name:'Star Forge',emoji:'⭐',color:'bg-indigo-950',description:'Legendary forge that shapes destiny among the stars',isCelestial:true,isTemporal:true,isFinal:true},
+            'Stellar Crucible+Stellar Crucible':{name:'Stellar Core',emoji:'☀️',color:'bg-amber-700',description:'Heart of a newborn star',isCelestial:true},
             'Celestial Power+Moon':{name:'Celestial Body',emoji:'🌙',color:'bg-indigo-500',description:'A moon touched by cosmic magic',isCelestial:true},
             'Stellar Core+Celestial Gate':{name:'Cosmic Architect',emoji:'🌌',color:'bg-indigo-950',description:'Builder of galaxies and star systems',isCelestial:true,isDivine:true,isFinal:true},
 
@@ -2057,7 +2282,7 @@
         let gs = {
             coins:25, totalCoins:25, lastCalcTime:Date.now(),
             shopRefresh:Date.now(), shopStock:{}, packsBought:0,
-            hasShownEnding:false,
+            hasShownEnding:false, sfUnlocked:false,
         };
 
         const totalMain = Object.keys(recipes).reduce((c,k)=> {
@@ -2202,6 +2427,7 @@
             if(el.isAbyssal) cls.push('abyssal-el');
             if(el.isCelestial) cls.push('celestial-el');
             if(el.isElectric) cls.push('electric-el');
+            if(el.isPurified) cls.push('purified-el');
             return cls.join(' ');
         }
 
@@ -2239,13 +2465,14 @@
             if(el.isAbyssal) h+='<span class="badge badge-abyssal">ABYSSAL</span>';
             if(el.isCelestial) h+='<span class="badge badge-celestial">CELESTIAL</span>';
             if(el.isElectric) h+='<span class="badge badge-electric">ELECTRIC</span>';
+            if(el.isPurified) h+='<span class="badge badge-purified">PURIFIED</span>';
             return h;
         }
 
         // ─── ELEMENT TYPE CLASSIFICATION & SORTING ───
         const TYPE_ORDER = [
             'Basic','Final','Exclusive','Secret','Legendary','Divine','Celestial','Ancient',
-            'Holy','Blessed','Golden','Crystalline','Chromatic','Ethereal','Electric','Magnetic','Temporal',
+            'Holy','Blessed','Purified','Golden','Crystalline','Chromatic','Ethereal','Electric','Magnetic','Temporal',
             'Infernal','Hot','Radioactive','Toxic','Cursed','Corrupted','Void','Abyssal',
             'Antimatter','Phantom','Unstable','Viral','Parasitic','Frozen','Permafrost','Tsunami',
             'Error','Fatal Error','Blank','Normal'
@@ -2259,6 +2486,7 @@
             if(el.isAncient) return 'Ancient';
             if(el.isHoly) return 'Holy';
             if(el.isBlessed) return 'Blessed';
+            if(el.isPurified) return 'Purified';
             if(el.isGolden) return 'Golden';
             if(el.isCrystalline) return 'Crystalline';
             if(el.isChromatic) return 'Chromatic';
@@ -2349,6 +2577,9 @@
                 if(el.isAbyssal) base+=6;
                 if(el.isCelestial) base+=9;
                 if(el.isElectric) base+=4;
+                if(el.isToxic) base+=8;
+                if(el.isViral) base+=10;
+                if(el.isPurified) base+=6;
                 // Penalties
                 if(el.isCursed) base=Math.max(1,base-3);
                 if(el.isCorrupted) base=Math.max(1,base-5);
@@ -2586,6 +2817,11 @@
 
         let isCombining=false;
         let frozenTutShown=false;
+        let finalTutShown=false;
+        let permafrostTutShown=false;
+        let secretTutShown=false;
+        let errorTutShown=false;
+        let fatalErrorTutShown=false;
         function resetDZs(){clearDZ(dz1,dz1c,1);clearDZ(dz2,dz2c,2);isCombining=false;}
         function updateBtnState(){const ok=sel1&&sel2;combineBtn.disabled=!ok;combineBtnM.disabled=!ok;}
 
@@ -2687,9 +2923,12 @@
                 }
             }
 
-            // ─── HOLY purification: cleanses cursed/corrupted results ───
+            // ─── HOLY purification: cleanses cursed/corrupted results + grants isPurified ───
             if(p1.isHoly||p2.isHoly||p1.isBlessed||p2.isBlessed){
                 delete result.isCursed; delete result.isCorrupted;
+                delete result.isToxic; delete result.isVoid;
+                delete result.isParasitic; delete result.isViral;
+                result.isPurified=true;
             }
 
             // ─── TOXIC contamination: 20% chance result becomes toxic ───
@@ -2742,6 +2981,9 @@
                     result.isBlessed=true;
                 }
                 delete result.isCursed; delete result.isCorrupted;
+                delete result.isToxic; delete result.isVoid;
+                delete result.isParasitic; delete result.isViral;
+                result.isPurified=true;
             }
 
             // ─── ELECTRIC shock: 10% short circuit→Error, 10% overcharge→isHot ───
@@ -2806,6 +3048,41 @@
             const result=generateElement(sel1,sel2);
             loader.classList.add('hidden');
 
+            // ─── UNIVERSAL PURIFICATION: blessed/holy/celestial/divine purify ANY element ───
+            const purifiers=['isHoly','isBlessed','isCelestial','isDivine'];
+            const sel1Purifies=purifiers.some(k=>sel1[k]);
+            const sel2Purifies=purifiers.some(k=>sel2[k]);
+            if(sel1Purifies||sel2Purifies){
+                const targets=[];
+                if(sel1Purifies&&!sel2.isPurified){
+                    const tIdx=elements.findIndex(e=>e.name===sel2.name);
+                    if(tIdx!==-1)targets.push(tIdx);
+                }
+                if(sel2Purifies&&!sel1.isPurified){
+                    const tIdx=elements.findIndex(e=>e.name===sel1.name);
+                    if(tIdx!==-1&&!targets.includes(tIdx))targets.push(tIdx);
+                }
+                if(targets.length>0){
+                    const cost=Math.max(5,Math.floor(gs.coins*0.08));
+                    if(gs.coins>=cost){
+                        gs.coins-=cost;updateCoinDisplay();
+                        targets.forEach(ti=>{
+                            elements[ti].isPurified=true;
+                            delete elements[ti].isCursed;delete elements[ti].isCorrupted;
+                            delete elements[ti].isToxic;delete elements[ti].isVoid;
+                            delete elements[ti].isParasitic;delete elements[ti].isViral;
+                        });
+                        save();renderEls();
+                        const purifiedNames=targets.map(ti=>elements[ti].name).join(' & ');
+                        notify('Purified!',purifiedNames+' has been purified! (−'+cost+' coins)','🪽');
+                        if(result.invalid){
+                            resultArea.innerHTML='<div class="text-center"><div class="el-card purified-el inline-flex flex-col items-center p-4 mb-2"><div class="el-emoji">🪽</div><div class="el-name">Purified!</div></div><div class="text-xs" style="color:var(--text-secondary)">'+purifiedNames+' was cleansed by holy power (−'+cost+' coins)</div></div>';
+                            resetDZs();return;
+                        }
+                    }
+                }
+            }
+
             if(result.frozen){resultArea.innerHTML='<div class="text-center text-xs" style="color:var(--text-secondary)">❄️ Frozen! Use heat to thaw.</div>';setTimeout(resetDZs,1500);return;}
             if(result.permafrostBlock){resultArea.innerHTML='<div class="text-center"><div class="el-card permafrost-el inline-flex flex-col items-center p-4 mb-2"><div class="el-emoji">🔒</div><div class="el-name">Permafrost!</div></div><div class="text-xs" style="color:var(--text-secondary)">Permanently frozen — nothing can thaw this</div></div>';setTimeout(resetDZs,0);return;}
             if(result.voidAbsorb){resultArea.innerHTML=`<div class="text-center"><div class="el-card void-el inline-flex flex-col items-center p-4 mb-2"><div class="el-emoji">🕳️</div><div class="el-name">Absorbed!</div></div><div class="text-xs" style="color:var(--text-secondary)">The Void consumed <strong>${result.consumed}</strong> — it is gone</div></div>`;setTimeout(resetDZs,0);return;}
@@ -2848,10 +3125,13 @@
                 if(newEl.isFrozen){const mb=document.createElement('div');mb.className='melt-bar';mb.style.width='0%';card.appendChild(mb);}
                 if(newEl.hasLink)card.addEventListener('click',()=>window.open(newEl.link,'_blank'));
                 d.appendChild(card);elGrid.appendChild(d);
-                updateCount();save();
+                updateCount();save();checkStarForgeUnlock();
                 // Notifications for special types
-                if(newEl.isFinal)notify('FINAL Element!','Discovered '+newEl.name+'!','⭐');
-                else if(newEl.isSecret)notify('SECRET Found!',newEl.name+' discovered!','🔮');
+                if(newEl.isFatalError){notify('FATAL ERROR!',newEl.name+' — critically glitched!','💀');if(!fatalErrorTutShown){fatalErrorTutShown=true;openModal('fatalErrorTutModal');}}
+                else if(newEl.isError){notify('ERROR!',newEl.name+' — glitched element!','⚠️');if(!errorTutShown){errorTutShown=true;openModal('errorTutModal');}}
+                else if(newEl.isFinal){notify('FINAL Element!','Discovered '+newEl.name+'!','⭐');if(!finalTutShown){finalTutShown=true;openModal('finalTutModal');}}
+                else if(newEl.isPermafrost){notify('PERMAFROST!',newEl.name+' — permanently frozen!','🔒');if(!permafrostTutShown){permafrostTutShown=true;openModal('permafrostTutModal');}}
+                else if(newEl.isSecret){notify('SECRET Found!',newEl.name+' discovered!','🔮');if(!secretTutShown){secretTutShown=true;openModal('secretTutModal');}}
                 else if(newEl.isBasic)notify('BASIC Element!',newEl.name+' discovered!','💚');
                 else if(newEl.isFrozen){notify('Frozen!',newEl.name+' is frozen — use heat!','❄️');if(!frozenTutShown){frozenTutShown=true;openModal('frozenTutModal');}}
                 else if(newEl.isSuperHot)notify('SUPER HOT!',newEl.name+' — melts ice fast!','🔥');
@@ -2870,6 +3150,85 @@
 
         combineBtn.addEventListener('click',combine);
         combineBtnM.addEventListener('click',combine);
+
+        // ─── STAR FORGE ───
+        const starForgeBtn=$('starForgeBtn'), sfTimer=$('sfTimer');
+        let sfCooldownEnd=0;
+        let sfInterval=null;
+        const SF_COOLDOWN=5*60*1000; // 5 minutes
+        const SF_BLESSINGS=['isPurified','isBlessed','isGolden','isCrystalline','isEthereal','isChromatic','isLegendary','isDivine','isCelestial','isAncient','isHoly'];
+
+        // Load cooldown from game state
+        function sfLoadCooldown(){
+            if(gs.sfCooldownEnd&&gs.sfCooldownEnd>Date.now()){sfCooldownEnd=gs.sfCooldownEnd;sfStartTimer();}
+        }
+
+        function sfStartTimer(){
+            starForgeBtn.classList.add('sf-cooldown');
+            if(sfInterval)clearInterval(sfInterval);
+            sfInterval=setInterval(()=>{
+                const rem=sfCooldownEnd-Date.now();
+                if(rem<=0){
+                    clearInterval(sfInterval);sfInterval=null;
+                    starForgeBtn.classList.remove('sf-cooldown');
+                    sfTimer.textContent='';
+                    notify('Star Forge Ready!','The Star Forge can be used again!','🌟');
+                } else {
+                    const m=Math.floor(rem/60000), s=Math.floor((rem%60000)/1000);
+                    sfTimer.textContent=' '+m+':'+String(s).padStart(2,'0');
+                }
+            },1000);
+            // Show initial time
+            const rem=sfCooldownEnd-Date.now();
+            const m=Math.floor(rem/60000), s=Math.floor((rem%60000)/1000);
+            sfTimer.textContent=' '+m+':'+String(s).padStart(2,'0');
+        }
+
+        function checkStarForgeUnlock(){
+            const unlocked=gs.sfUnlocked||elements.some(e=>e.name==='Star Forge');
+            if(unlocked&&!gs.sfUnlocked){gs.sfUnlocked=true;save();}
+            if(unlocked){starForgeBtn.classList.remove('sf-locked');starForgeBtn.style.pointerEvents='';}
+            else{starForgeBtn.classList.add('sf-locked');starForgeBtn.style.pointerEvents='none';}
+        }
+
+        function activateStarForge(){
+            if(!gs.sfUnlocked){notify('Locked','Discover the ⭐ Star Forge element to unlock!','🔒');return;}
+            if(sfCooldownEnd>Date.now())return;
+            const eligible=elements.filter(e=>!e.isFinal&&!e.isFatalError&&!e.isError&&!e.isBlank);
+            if(eligible.length<1){notify('Star Forge','No eligible elements to bless!','⚠️');return;}
+            const count=Math.min(5,eligible.length);
+            // Shuffle and pick
+            const shuffled=[...eligible].sort(()=>Math.random()-0.5);
+            const chosen=shuffled.slice(0,count);
+            const results=[];
+            chosen.forEach(target=>{
+                const idx=elements.findIndex(e=>e.name===target.name);
+                if(idx===-1)return;
+                // Pick 1-2 random blessings for each
+                const numBlessings=1+Math.floor(Math.random()*2);
+                const available=SF_BLESSINGS.filter(k=>!elements[idx][k]);
+                if(available.length===0)return;
+                const picked=available.sort(()=>Math.random()-0.5).slice(0,Math.min(numBlessings,available.length));
+                picked.forEach(b=>{elements[idx][b]=true;});
+                // Also cleanse negative properties
+                delete elements[idx].isCursed;delete elements[idx].isCorrupted;
+                results.push(elements[idx].emoji+' '+elements[idx].name+' → '+picked.map(b=>b.replace('is','')).join(', '));
+            });
+            // Start cooldown
+            sfCooldownEnd=Date.now()+SF_COOLDOWN;
+            gs.sfCooldownEnd=sfCooldownEnd;
+            save();renderEls();sfStartTimer();
+            // Animate button
+            starForgeBtn.classList.add('sf-activate');
+            setTimeout(()=>starForgeBtn.classList.remove('sf-activate'),700);
+            // Show notification
+            if(results.length>0){
+                notify('⭐ Star Forge Activated!',results.join(' | '),'🌟',8000);
+                resultArea.innerHTML='<div class="text-center"><div class="el-card purified-el inline-flex flex-col items-center p-4 mb-2" style="background:linear-gradient(135deg,#1e1b4b,#312e81,#fbbf24)!important"><div class="el-emoji" style="font-size:2rem">🌟</div><div class="el-name" style="color:#fef3c7">Star Forge!</div></div><div class="text-xs mt-2" style="color:var(--text-secondary)">'+results.map(r=>'<div class="mb-1">'+r+'</div>').join('')+'</div></div>';
+            }
+        }
+
+        starForgeBtn.addEventListener('click',activateStarForge);
 
         // ─── COMBO HISTORY ───
         function addComboEntry(e1,e2,res){
@@ -2967,7 +3326,7 @@
                 if(d.gs)gs={...gs,...d.gs};
                 if(d.sortMode&&['original','type','alpha'].includes(d.sortMode)){currentSort=d.sortMode;applySortBtnUI();}
                 const added=userOnly.length;
-                renderEls();rebuildHistory();updateCount();updateCoinDisplay();save();
+                renderEls();rebuildHistory();updateCount();updateCoinDisplay();save();checkStarForgeUnlock();
                 closeModal('importModal');notify('Imported!',elements.length+' elements loaded'+(added?' ('+added+' of your elements kept)':''),'✅');
             }catch(e){
                 $('importErr').textContent=e.message.includes('tampered')||e.message.includes('Wrong password')?'❌ Wrong password or corrupted data':'Invalid code: '+e.message;
@@ -2983,7 +3342,7 @@
         $('confirmReset').addEventListener('click',()=>{
             elements=[...STARTERS];combos=[];
             gs={coins:25,totalCoins:25,lastCalcTime:Date.now(),shopRefresh:Date.now(),shopStock:{},packsBought:0,hasShownEnding:false};
-            fractionalCoins=0;frozenTutShown=false;
+            fractionalCoins=0;frozenTutShown=false;finalTutShown=false;permafrostTutShown=false;secretTutShown=false;errorTutShown=false;fatalErrorTutShown=false;
             comboHistory.innerHTML='<p class="italic text-center text-sm" style="color:var(--text-secondary)">No combinations yet</p>';
             resultArea.innerHTML='';searchInput.value='';
             currentSort='original';applySortBtnUI();saveSortPref();
@@ -3077,6 +3436,8 @@
         updateCount();
         updateCoinDisplay();
         rebuildHistory();
+        checkStarForgeUnlock();
+        sfLoadCooldown();
         if(gs.hasShownEnding)$('viewRankBtn').classList.remove('hidden');
         if(!gs.shopStock||!Object.keys(gs.shopStock).length)refreshShop();
         else renderShop();
