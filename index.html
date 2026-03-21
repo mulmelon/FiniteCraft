@@ -2473,9 +2473,9 @@
         const TYPE_ORDER = [
             'Basic','Final','Exclusive','Secret','Legendary','Divine','Celestial','Ancient',
             'Holy','Blessed','Purified','Golden','Crystalline','Chromatic','Ethereal','Electric','Magnetic','Temporal',
-            'Infernal','Hot','Radioactive','Abyssal',
-            'Antimatter','Phantom','Unstable','Frozen','Permafrost','Tsunami',
-            'Error','Fatal Error','Blank','Cursed','Corrupted','Void','Parasitic','Viral','Toxic','Normal'
+            'Infernal','Hot','Radioactive','Toxic','Cursed','Corrupted','Void','Abyssal',
+            'Antimatter','Phantom','Unstable','Viral','Parasitic','Frozen','Permafrost','Tsunami',
+            'Error','Fatal Error','Blank','Normal'
         ];
         function getElType(el) {
             if(el.isFatalError) return 'Fatal Error';
@@ -2577,10 +2577,10 @@
                 if(el.isAbyssal) base+=6;
                 if(el.isCelestial) base+=9;
                 if(el.isElectric) base+=4;
+                if(el.isToxic) base+=8;
+                if(el.isViral) base+=10;
                 if(el.isPurified) base+=6;
                 // Penalties
-                if(el.isToxic) base=Math.max(1,base-4);
-                if(el.isViral) base=Math.max(1,base-5);
                 if(el.isCursed) base=Math.max(1,base-3);
                 if(el.isCorrupted) base=Math.max(1,base-5);
                 if(el.isParasitic) base=Math.max(1,Math.floor(base*0.5));
