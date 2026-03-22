@@ -867,6 +867,45 @@
         <button class="font-semibold text-sm py-2.5 px-8 rounded-full" style="background:#7f1d1d;color:#fff" data-close="fatalErrorTutModal">Got it!</button>
     </div></div>
 
+    <!-- Penalty Tutorial Modal -->
+    <div id="penaltyTutModal" class="modal-overlay"><div class="modal-box text-center" style="max-width:460px;border-color:#ef4444">
+        <button class="modal-close" data-close="penaltyTutModal">&times;</button>
+        <h2 class="font-display text-xl mb-2" style="color:#ef4444">⚠️ Penalty Element!</h2>
+        <p class="text-sm mb-5" style="color:var(--text-secondary)">You got an element with a special modification that <strong style="color:#ef4444">debuffs your coin earn</strong> instead of buffing it. Purify the element with a <strong style="color:#fbbf24">"Blessed"</strong> or <strong style="color:#fef3c7">"Holy"</strong> element to get your buff back!</p>
+        <div class="tut-demo">
+            <div class="tut-row">
+                <div class="tut-card" style="border-color:#ef4444;background:rgba(239,68,68,0.15)">
+                    <span class="tut-emoji">⚠️</span>
+                    <span class="tut-label">Penalty Element</span>
+                </div>
+                <div class="tut-plus">+</div>
+                <div class="tut-card" style="border-color:#fbbf24;background:rgba(251,191,36,0.15)">
+                    <span class="tut-emoji">✨</span>
+                    <span class="tut-label">Blessed / Holy</span>
+                </div>
+            </div>
+            <div class="tut-arrow">
+                <svg width="24" height="40" viewBox="0 0 24 40"><path d="M12 0 L12 30 M4 22 L12 30 L20 22" stroke="#fbbf24" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+            </div>
+            <div class="tut-row">
+                <div class="tut-card" style="border-color:#d1d5db;background:rgba(209,213,219,0.15)">
+                    <span class="tut-emoji">🕊️</span>
+                    <span class="tut-label">Purified!</span>
+                </div>
+            </div>
+        </div>
+        <div class="rounded-xl p-3 mt-4 mb-4 text-left text-xs space-y-2" style="background:var(--bg-primary);border:1px solid var(--border);color:var(--text-secondary)">
+            <p>☠️ <strong style="color:#84cc16">Toxic</strong> — -8 coins/min, can contaminate results</p>
+            <p>🦠 <strong style="color:#10b981">Viral</strong> — -10 coins/min, spreads through combinations</p>
+            <p>🕷️ <strong style="color:#4d7c0f">Parasitic</strong> — halves your coin earning from that element</p>
+            <p>🔻 <strong style="color:#991b1b">Corrupted</strong> — -5 coins/min, can infect results</p>
+            <p>💜 <strong style="color:#7c3aed">Cursed</strong> — 15% chance to corrupt combinations</p>
+            <p>🕳️ <strong style="color:#a78bfa">Void</strong> — absorbs elements combined with it</p>
+            <p>✨ <strong style="color:#fbbf24">Blessed</strong>, <strong style="color:#fef3c7">Holy</strong>, <strong style="color:#fde68a">Divine</strong>, or <strong style="color:#fbbf24">Celestial</strong> elements will <strong style="color:var(--text-primary)">purify</strong> penalty elements when combined!</p>
+        </div>
+        <button class="font-semibold text-sm py-2.5 px-8 rounded-full" style="background:#ef4444;color:#fff" data-close="penaltyTutModal">Got it!</button>
+    </div></div>
+
     <!-- Changelog Button & Modal -->
     <button id="changelogBtn" class="fixed bottom-5 right-5 w-11 h-11 rounded-full flex items-center justify-center text-lg shadow-lg z-50 transition-transform hover:scale-110" style="background:var(--gold);color:#1a1a2e">📋</button>
     <div id="changelogModal" class="modal-overlay"><div class="modal-box">
@@ -2385,8 +2424,19 @@
         }
         function randColor(){const c=['bg-red-400','bg-blue-400','bg-green-400','bg-yellow-400','bg-purple-400','bg-pink-400','bg-indigo-400','bg-teal-400','bg-orange-400','bg-cyan-400','bg-emerald-400','bg-violet-400'];return c[Math.floor(Math.random()*c.length)];}
 
+        function hasPenaltyMod(el){return !!(el.isToxic||el.isViral||el.isParasitic||el.isCorrupted||el.isCursed||el.isVoid);}
+
         function getElClasses(el) {
             let cls=[];
+            // Penalty elements only show penalty styling
+            if(hasPenaltyMod(el)){
+                if(el.isToxic) cls.push('toxic-el');
+                if(el.isViral) cls.push('viral-el');
+                if(el.isParasitic) cls.push('parasitic-el');
+                if(el.isCorrupted) cls.push('corrupted-el');
+                cls.push('penalty-el');
+                return cls.join(' ');
+            }
             if(el.isBasic) cls.push('basic-el');
             if(el.isFinal) cls.push('final-el');
             else if(el.isExclusive) cls.push('exclusive-el');
@@ -2406,7 +2456,6 @@
             if(el.isRadioactive) cls.push('radioactive-el');
             if(el.isCursed) cls.push('cursed-el');
             if(el.isBlessed) cls.push('blessed-el');
-            if(el.isViral) cls.push('viral-el');
             if(el.isUnstable) cls.push('unstable-el');
             if(el.isPhantom) cls.push('phantom-el');
             if(el.isGolden) cls.push('golden-el');
@@ -2416,7 +2465,6 @@
             if(el.isVoid) cls.push('void-el');
             if(el.isEthereal) cls.push('ethereal-el');
             if(el.isLegendary) cls.push('legendary-el');
-            if(el.isToxic) cls.push('toxic-el');
             if(el.isChromatic) cls.push('chromatic-el');
             if(el.isAncient) cls.push('ancient-el');
             if(el.isDivine) cls.push('divine-el');
@@ -2433,6 +2481,14 @@
 
         function getBadges(el) {
             let h='';
+            // Penalty elements only display the penalty modification badge
+            if(hasPenaltyMod(el)){
+                if(el.isToxic) h+='<span class="badge badge-toxic">⚠️ TOXIC</span>';
+                if(el.isViral) h+='<span class="badge badge-viral">⚠️ VIRAL</span>';
+                if(el.isParasitic) h+='<span class="badge badge-parasitic">⚠️ PARASITIC</span>';
+                if(el.isCorrupted) h+='<span class="badge badge-corrupted">⚠️ CORRUPT</span>';
+                return h;
+            }
             if(el.isFinal) h+='<span class="badge badge-final">FINAL</span>';
             else if(el.isExclusive) h+='<span class="badge badge-exclusive">EXCLUSIVE</span>';
             if(el.isPermafrost) h+='<span class="badge badge-permafrost">PERMAFROST</span>';
@@ -2444,7 +2500,6 @@
             if(el.isRadioactive) h+='<span class="badge badge-radioactive">☢️ RADIO</span>';
             if(el.isCursed) h+='<span class="badge badge-cursed">CURSED</span>';
             if(el.isBlessed) h+='<span class="badge badge-blessed">BLESSED</span>';
-            if(el.isViral) h+='<span class="badge badge-viral">VIRAL</span>';
             if(el.isUnstable) h+='<span class="badge badge-unstable">UNSTABLE</span>';
             if(el.isPhantom) h+='<span class="badge badge-phantom">PHANTOM</span>';
             if(el.isGolden) h+='<span class="badge badge-golden">GOLDEN</span>';
@@ -2454,7 +2509,6 @@
             if(el.isVoid) h+='<span class="badge badge-void">VOID</span>';
             if(el.isEthereal) h+='<span class="badge badge-ethereal">ETHEREAL</span>';
             if(el.isLegendary) h+='<span class="badge badge-legendary">LEGENDARY</span>';
-            if(el.isToxic) h+='<span class="badge badge-toxic">TOXIC</span>';
             if(el.isChromatic) h+='<span class="badge badge-chromatic">CHROMATIC</span>';
             if(el.isAncient) h+='<span class="badge badge-ancient">ANCIENT</span>';
             if(el.isDivine) h+='<span class="badge badge-divine">DIVINE</span>';
@@ -2473,11 +2527,13 @@
         const TYPE_ORDER = [
             'Basic','Final','Exclusive','Secret','Legendary','Divine','Celestial','Ancient',
             'Holy','Blessed','Purified','Golden','Crystalline','Chromatic','Ethereal','Electric','Magnetic','Temporal',
-            'Infernal','Hot','Radioactive','Toxic','Cursed','Corrupted','Void','Abyssal',
-            'Antimatter','Phantom','Unstable','Viral','Parasitic','Frozen','Permafrost','Tsunami',
-            'Error','Fatal Error','Blank','Normal'
+            'Infernal','Hot','Radioactive','Cursed','Corrupted','Void','Abyssal',
+            'Antimatter','Phantom','Unstable','Parasitic','Frozen','Permafrost','Tsunami',
+            'Error','Fatal Error','Blank','Normal','Penalty'
         ];
         function getElType(el) {
+            // Penalty elements always go to Penalty section at the end
+            if(hasPenaltyMod(el)) return 'Penalty';
             if(el.isFatalError) return 'Fatal Error';
             if(el.isError) return 'Error';
             if(el.isDivine) return 'Divine';
@@ -2499,7 +2555,6 @@
             if(el.isInfernal) return 'Infernal';
             if(el.isHot||el.isSuperHot) return 'Hot';
             if(el.isRadioactive) return 'Radioactive';
-            if(el.isToxic) return 'Toxic';
             if(el.isAntimatter) return 'Antimatter';
             if(el.isVoid) return 'Void';
             if(el.isAbyssal) return 'Abyssal';
@@ -2507,7 +2562,6 @@
             if(el.isCorrupted) return 'Corrupted';
             if(el.isPhantom) return 'Phantom';
             if(el.isUnstable) return 'Unstable';
-            if(el.isViral) return 'Viral';
             if(el.isParasitic) return 'Parasitic';
             if(el.isTsunami) return 'Tsunami';
             if(el.isBlank) return 'Blank';
@@ -2559,28 +2613,32 @@
                 if(el.isSecret||el.isValidCombination) base=10;
                 else if(el.isFinal) base=5;
                 else if(el.isBasic||el.isQuestion) base=3;
-                // Special type bonuses (additive)
-                if(el.isDivine) base+=30;
-                else if(el.isLegendary) base+=25;
-                else if(el.isGolden) base+=20;
-                else if(el.isAncient) base+=12;
-                if(el.isRadioactive) base+=15;
-                if(el.isBlessed) base+=8;
-                if(el.isCrystalline) base+=6;
-                if(el.isInfernal) base+=10;
-                if(el.isChromatic) base+=5;
-                if(el.isHoly) base+=7;
-                if(el.isPermafrost) base+=4;
-                if(el.isAntimatter) base+=12;
-                if(el.isMagnetic) base+=5;
-                if(el.isTemporal) base+=7;
-                if(el.isAbyssal) base+=6;
-                if(el.isCelestial) base+=9;
-                if(el.isElectric) base+=4;
-                if(el.isToxic) base+=8;
-                if(el.isViral) base+=10;
-                if(el.isPurified) base+=6;
+                // Penalty elements skip all positive bonuses
+                const elHasPenalty=hasPenaltyMod(el);
+                if(!elHasPenalty){
+                    // Special type bonuses (additive)
+                    if(el.isDivine) base+=30;
+                    else if(el.isLegendary) base+=25;
+                    else if(el.isGolden) base+=20;
+                    else if(el.isAncient) base+=12;
+                    if(el.isRadioactive) base+=15;
+                    if(el.isBlessed) base+=8;
+                    if(el.isCrystalline) base+=6;
+                    if(el.isInfernal) base+=10;
+                    if(el.isChromatic) base+=5;
+                    if(el.isHoly) base+=7;
+                    if(el.isPermafrost) base+=4;
+                    if(el.isAntimatter) base+=12;
+                    if(el.isMagnetic) base+=5;
+                    if(el.isTemporal) base+=7;
+                    if(el.isAbyssal) base+=6;
+                    if(el.isCelestial) base+=9;
+                    if(el.isElectric) base+=4;
+                    if(el.isPurified) base+=6;
+                }
                 // Penalties
+                if(el.isToxic) base=Math.max(1,base-8);
+                if(el.isViral) base=Math.max(1,base-10);
                 if(el.isCursed) base=Math.max(1,base-3);
                 if(el.isCorrupted) base=Math.max(1,base-5);
                 if(el.isParasitic) base=Math.max(1,Math.floor(base*0.5));
@@ -2724,8 +2782,13 @@
                     if(t !== lastType) {
                         lastType = t;
                         const div = document.createElement('div');
-                        div.className = 'type-divider';
-                        div.textContent = t;
+                        if(t === 'Penalty'){
+                            div.className = 'type-divider penalty-divider';
+                            div.innerHTML = '<span style="color:#ef4444">⚠️ ELEMENTS WITH PENALTIES</span> <span style="font-weight:400;font-size:0.55rem;display:block;margin-top:2px;color:#f87171">PURIFY THEM WITH HOLY OR BLESSED QUICKLY, THEY LESSEN YOUR BASE COIN EARNING!</span>';
+                        } else {
+                            div.className = 'type-divider';
+                            div.textContent = t;
+                        }
                         elGrid.appendChild(div);
                     }
                 }
@@ -2822,6 +2885,7 @@
         let secretTutShown=false;
         let errorTutShown=false;
         let fatalErrorTutShown=false;
+        let penaltyTutShown=false;
         function resetDZs(){clearDZ(dz1,dz1c,1);clearDZ(dz2,dz2c,2);isCombining=false;}
         function updateBtnState(){const ok=sel1&&sel2;combineBtn.disabled=!ok;combineBtnM.disabled=!ok;}
 
@@ -2923,12 +2987,14 @@
                 }
             }
 
-            // ─── HOLY purification: cleanses cursed/corrupted results + grants isPurified ───
+            // ─── HOLY purification: cleanses cursed/corrupted/toxic/viral/parasitic results ───
             if(p1.isHoly||p2.isHoly||p1.isBlessed||p2.isBlessed){
-                delete result.isCursed; delete result.isCorrupted;
-                delete result.isToxic; delete result.isVoid;
-                delete result.isParasitic; delete result.isViral;
-                result.isPurified=true;
+                if(result.isCursed||result.isCorrupted||result.isToxic||result.isViral||result.isParasitic){
+                    delete result.isCursed; delete result.isCorrupted;
+                    delete result.isToxic; delete result.isViral;
+                    delete result.isParasitic;
+                    result.isPurified=true;
+                }
             }
 
             // ─── TOXIC contamination: 20% chance result becomes toxic ───
@@ -3048,17 +3114,18 @@
             const result=generateElement(sel1,sel2);
             loader.classList.add('hidden');
 
-            // ─── UNIVERSAL PURIFICATION: blessed/holy/celestial/divine purify ANY element ───
+            // ─── PURIFICATION: blessed/holy/celestial/divine purify ONLY cursed/penalty elements ───
             const purifiers=['isHoly','isBlessed','isCelestial','isDivine'];
+            const cursedFlags=['isCursed','isCorrupted','isToxic','isViral','isParasitic','isVoid'];
             const sel1Purifies=purifiers.some(k=>sel1[k]);
             const sel2Purifies=purifiers.some(k=>sel2[k]);
             if(sel1Purifies||sel2Purifies){
                 const targets=[];
-                if(sel1Purifies&&!sel2.isPurified){
+                if(sel1Purifies&&!sel2.isPurified&&cursedFlags.some(k=>sel2[k])){
                     const tIdx=elements.findIndex(e=>e.name===sel2.name);
                     if(tIdx!==-1)targets.push(tIdx);
                 }
-                if(sel2Purifies&&!sel1.isPurified){
+                if(sel2Purifies&&!sel1.isPurified&&cursedFlags.some(k=>sel1[k])){
                     const tIdx=elements.findIndex(e=>e.name===sel1.name);
                     if(tIdx!==-1&&!targets.includes(tIdx))targets.push(tIdx);
                 }
@@ -3069,8 +3136,8 @@
                         targets.forEach(ti=>{
                             elements[ti].isPurified=true;
                             delete elements[ti].isCursed;delete elements[ti].isCorrupted;
-                            delete elements[ti].isToxic;delete elements[ti].isVoid;
-                            delete elements[ti].isParasitic;delete elements[ti].isViral;
+                            delete elements[ti].isToxic;delete elements[ti].isViral;
+                            delete elements[ti].isParasitic;delete elements[ti].isVoid;
                         });
                         save();renderEls();
                         const purifiedNames=targets.map(ti=>elements[ti].name).join(' & ');
@@ -3129,6 +3196,7 @@
                 // Notifications for special types
                 if(newEl.isFatalError){notify('FATAL ERROR!',newEl.name+' — critically glitched!','💀');if(!fatalErrorTutShown){fatalErrorTutShown=true;openModal('fatalErrorTutModal');}}
                 else if(newEl.isError){notify('ERROR!',newEl.name+' — glitched element!','⚠️');if(!errorTutShown){errorTutShown=true;openModal('errorTutModal');}}
+                else if(hasPenaltyMod(newEl)){notify('⚠️ PENALTY!',newEl.name+' — debuffs your coin earn!','☠️');if(!penaltyTutShown){penaltyTutShown=true;openModal('penaltyTutModal');}}
                 else if(newEl.isFinal){notify('FINAL Element!','Discovered '+newEl.name+'!','⭐');if(!finalTutShown){finalTutShown=true;openModal('finalTutModal');}}
                 else if(newEl.isPermafrost){notify('PERMAFROST!',newEl.name+' — permanently frozen!','🔒');if(!permafrostTutShown){permafrostTutShown=true;openModal('permafrostTutModal');}}
                 else if(newEl.isSecret){notify('SECRET Found!',newEl.name+' discovered!','🔮');if(!secretTutShown){secretTutShown=true;openModal('secretTutModal');}}
@@ -3171,6 +3239,7 @@
                 if(rem<=0){
                     clearInterval(sfInterval);sfInterval=null;
                     starForgeBtn.classList.remove('sf-cooldown');
+                    starForgeBtn.classList.remove('sf-locked');starForgeBtn.style.pointerEvents='';
                     sfTimer.textContent='';
                     notify('Star Forge Ready!','The Star Forge can be used again!','🌟');
                 } else {
@@ -3194,7 +3263,7 @@
         function activateStarForge(){
             if(!gs.sfUnlocked){notify('Locked','Discover the ⭐ Star Forge element to unlock!','🔒');return;}
             if(sfCooldownEnd>Date.now())return;
-            const eligible=elements.filter(e=>!e.isFinal&&!e.isFatalError&&!e.isError&&!e.isBlank&&!e.isPermafrost);
+            const eligible=elements.filter(e=>!e.isFinal&&!e.isFatalError&&!e.isError&&!e.isBlank&&!e.isPermafrost&&!hasPenaltyMod(e)&&SF_BLESSINGS.some(k=>!e[k]));
             if(eligible.length<1){notify('Star Forge','No eligible elements to bless!','⚠️');return;}
             const count=Math.min(5,eligible.length);
             // Shuffle and pick
@@ -3211,13 +3280,15 @@
                 const picked=available.sort(()=>Math.random()-0.5).slice(0,Math.min(numBlessings,available.length));
                 picked.forEach(b=>{elements[idx][b]=true;});
                 // Also cleanse negative properties
-                delete elements[idx].isCursed;delete elements[idx].isCorrupted;
+                delete elements[idx].isCursed;delete elements[idx].isCorrupted;delete elements[idx].isToxic;delete elements[idx].isViral;delete elements[idx].isParasitic;delete elements[idx].isVoid;
                 results.push(elements[idx].emoji+' '+elements[idx].name+' → '+picked.map(b=>b.replace('is','')).join(', '));
             });
             // Start cooldown
             sfCooldownEnd=Date.now()+SF_COOLDOWN;
             gs.sfCooldownEnd=sfCooldownEnd;
             save();renderEls();sfStartTimer();
+            // Reset button to locked mode during cooldown
+            starForgeBtn.classList.add('sf-locked');starForgeBtn.style.pointerEvents='none';
             // Animate button
             starForgeBtn.classList.add('sf-activate');
             setTimeout(()=>starForgeBtn.classList.remove('sf-activate'),700);
@@ -3342,7 +3413,13 @@
         $('confirmReset').addEventListener('click',()=>{
             elements=[...STARTERS];combos=[];
             gs={coins:25,totalCoins:25,lastCalcTime:Date.now(),shopRefresh:Date.now(),shopStock:{},packsBought:0,hasShownEnding:false};
-            fractionalCoins=0;frozenTutShown=false;finalTutShown=false;permafrostTutShown=false;secretTutShown=false;errorTutShown=false;fatalErrorTutShown=false;
+            fractionalCoins=0;frozenTutShown=false;finalTutShown=false;permafrostTutShown=false;secretTutShown=false;errorTutShown=false;fatalErrorTutShown=false;penaltyTutShown=false;
+            // Reset Star Forge to locked
+            sfCooldownEnd=0;gs.sfCooldownEnd=0;
+            if(sfInterval){clearInterval(sfInterval);sfInterval=null;}
+            sfTimer.textContent='';
+            starForgeBtn.classList.remove('sf-cooldown');
+            starForgeBtn.classList.add('sf-locked');starForgeBtn.style.pointerEvents='none';
             comboHistory.innerHTML='<p class="italic text-center text-sm" style="color:var(--text-secondary)">No combinations yet</p>';
             resultArea.innerHTML='';searchInput.value='';
             currentSort='original';applySortBtnUI();saveSortPref();
