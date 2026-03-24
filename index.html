@@ -528,7 +528,6 @@
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => { e.matches ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark'); });
     </script>
 
-    <div id="winsDisplay" style="position:fixed;top:10px;left:10px;z-index:50;font-size:0.7rem;font-weight:700;padding:4px 12px;border-radius:9999px;background:rgba(234,179,8,0.12);color:#eab308;font-family:'Lexend',sans-serif;letter-spacing:0.5px;pointer-events:none;">🏆 <span id="winsCount">0</span> WINS</div>
     <div class="max-w-5xl mx-auto px-4 py-6">
         <!-- Header -->
         <header class="text-center mb-6">
@@ -2367,7 +2366,7 @@
         let gs = {
             coins:25, totalCoins:25, lastCalcTime:Date.now(),
             shopRefresh:Date.now(), shopStock:{}, packsBought:0,
-            hasShownEnding:false, sfUnlocked:false, wins:0,
+            hasShownEnding:false, sfUnlocked:false,
         };
 
         const totalMain = Object.keys(recipes).reduce((c,k)=> {
@@ -2473,10 +2472,16 @@
         function hasPenaltyMod(el){return !!(el.isToxic||el.isViral||el.isParasitic||el.isCorrupted||el.isCursed||el.isVoid);}
 
         const EVERYTHING_REQUIRED=['isBasic','isRadioactive','isBlessed','isUnstable','isPhantom','isGolden','isCrystalline','isHoly','isEthereal','isLegendary','isChromatic','isAncient','isDivine','isAntimatter','isMagnetic','isTemporal','isAbyssal','isCelestial','isElectric','isPurified','isTsunami','isInfernal'];
+        const ALL_MOD_FLAGS=['isBasic','isRadioactive','isBlessed','isUnstable','isPhantom','isGolden','isCrystalline','isHoly','isEthereal','isLegendary','isChromatic','isAncient','isDivine','isAntimatter','isMagnetic','isTemporal','isAbyssal','isCelestial','isElectric','isPurified','isTsunami','isInfernal','isHot','isSuperHot','isFinal','isSecret','isExclusive','isValidCombination','isQuestion','isFrozen','isPermafrost','isError','isFatalError','isBlank','isToxic','isViral','isParasitic','isCorrupted','isCursed','isVoid'];
         function checkIsEverything(el){
+            if(el.isEverything)return true;
             if(hasPenaltyMod(el))return false;
             if(!(el.isHot||el.isSuperHot))return false;
             return EVERYTHING_REQUIRED.every(k=>!!el[k]);
+        }
+        function stripToEverything(el){
+            ALL_MOD_FLAGS.forEach(k=>{delete el[k];});
+            el.isEverything=true;
         }
 
         function getElClasses(el) {
@@ -2659,7 +2664,7 @@
         function save(){try{_setItem('fc_el',JSON.stringify(elements));_setItem('fc_co',JSON.stringify(combos));_setItem('fc_gs',JSON.stringify(gs));}catch(e){}}
         function load(){try{
             const e=_getItem('fc_el'),c=_getItem('fc_co'),s=_getItem('fc_gs');
-            if(e)elements=JSON.parse(e);if(c)combos=JSON.parse(c);
+            if(e){elements=JSON.parse(e);elements.forEach(el=>{if(checkIsEverything(el)){stripToEverything(el);}});}if(c)combos=JSON.parse(c);
             if(s){const l=JSON.parse(s);gs={...gs,...l};}
         }catch(e){}}
 
@@ -2725,10 +2730,8 @@
             updateShopButtons();
         }
 
-        function updateWinsDisplay(){
-            const wc=$('winsCount');
-            if(wc) wc.textContent=(gs.wins||0).toLocaleString();
-        }
+
+
 
         function updateShopButtons(){
             const grid=$('shopGrid');
@@ -3242,8 +3245,12 @@
         }
 
         function addElement(newEl){
+            // If element qualifies as Everything, strip all mods and set isEverything only
+            if(checkIsEverything(newEl)){stripToEverything(newEl);}
             const exists=elements.findIndex(e=>e.name.toLowerCase()===newEl.name.toLowerCase());
             if(exists!==-1){
+                // Re-check existing element in case it now qualifies after Star Forge etc.
+                if(checkIsEverything(elements[exists])){stripToEverything(elements[exists]);}
                 showResult(elements[exists],false);
             } else {
                 elements.push(newEl);
@@ -3347,7 +3354,9 @@
                 picked.forEach(b=>{elements[idx][b]=true;});
                 // Also cleanse negative properties
                 delete elements[idx].isCursed;delete elements[idx].isCorrupted;delete elements[idx].isToxic;delete elements[idx].isViral;delete elements[idx].isParasitic;delete elements[idx].isVoid;
-                results.push(elements[idx].emoji+' '+elements[idx].name+' → '+picked.map(b=>b.replace('is','')).join(', '));
+                // Check if element now qualifies as Everything
+                if(checkIsEverything(elements[idx])){stripToEverything(elements[idx]);}
+                results.push(elements[idx].emoji+' '+elements[idx].name+' → '+(elements[idx].isEverything?'EVERYTHING':picked.map(b=>b.replace('is','')).join(', ')));
             });
             // Start cooldown
             sfCooldownEnd=Date.now()+SF_COOLDOWN;
@@ -3455,6 +3464,8 @@
                 const importedNames=new Set(d.elements.map(e=>e.name));
                 const userOnly=elements.filter(e=>!importedNames.has(e.name));
                 elements=[...d.elements,...userOnly];
+                // Strip elements that qualify as Everything
+                elements.forEach(el=>{if(checkIsEverything(el)){stripToEverything(el);}});
                 // MERGE combos: import combos first, then append user's unique combos
                 const importCombos=d.combos||[];
                 const importComboKeys=new Set(importCombos.map(c=>c.e1+'|'+c.e2+'|'+c.r));
@@ -3478,7 +3489,7 @@
         $('resetBtn').addEventListener('click',()=>openModal('resetModal'));
         $('confirmReset').addEventListener('click',()=>{
             elements=[...STARTERS];combos=[];
-            gs={coins:25,totalCoins:25,lastCalcTime:Date.now(),shopRefresh:Date.now(),shopStock:{},packsBought:0,hasShownEnding:false,wins:0};
+            gs={coins:25,totalCoins:25,lastCalcTime:Date.now(),shopRefresh:Date.now(),shopStock:{},packsBought:0,hasShownEnding:false};
             fractionalCoins=0;frozenTutShown=false;finalTutShown=false;permafrostTutShown=false;secretTutShown=false;errorTutShown=false;fatalErrorTutShown=false;penaltyTutShown=false;
             // Reset Star Forge to locked
             sfCooldownEnd=0;gs.sfCooldownEnd=0;
